@@ -1,0 +1,574 @@
+%----------------------------------------------------------------------------------------
+%	Trent Project Report Req's
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt,a4paper,oneside]{report}
+\renewcommand{\baselinestretch}{1.5}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+
+%----------------------------------------------------------------------------------------
+%	Custom Packages
+%----------------------------------------------------------------------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{float}
+\usepackage{url}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\usepackage[titletoc, title]{appendix}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{listings}
+\usepackage{hyperref}
+\hypersetup{%
+    pdfborder = {0 0 0},
+    colorlinks,
+    citecolor=blue,
+    filecolor=Darkgreen,
+    linkcolor=red,
+    urlcolor=blue
+}
+
+\usepackage{caption}
+\captionsetup[figure]{labelfont={bf},labelformat={default},labelsep=period,name={Figure}}
+\captionsetup[table]{labelfont={bf},labelformat={default},labelsep=period,name={Table}}
+
+\usepackage{titling}
+\newcommand{\subtitle}[1]{%
+  \posttitle{%
+    \par\end{center}
+    \begin{center}\large#1\end{center}
+    \vskip0.5em}%
+}
+
+\usepackage[table]{xcolor}
+
+\usepackage[
+  backend=bibtex
+ ,style=numeric-comp 
+ ,sorting=none   
+ ,sortcites=true   
+ ,block=none
+ ,indexing=false
+ ,citereset=none
+ ,isbn=true
+ ,url=true
+ ,doi=true        
+ ,natbib=true  
+]{biblatex}
+
+\usepackage{pgfgantt}
+
+\addbibresource{Mendeley.bib} 
+
+
+%----------------------------------------------------------------------------------------
+%	Settings
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries}{}{0pt}{\LARGE}
+
+\lstset{language=Python,
+    breaklines=true,
+    morekeywords={matlab2tikz},
+    keywordstyle=\color{blue},
+    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+    identifierstyle=\color{black},
+    stringstyle=\color{red},
+    commentstyle=\color{mygreen},
+    showstringspaces=false,
+    numbers=left,
+    numberstyle={\tiny \color{black}},
+    numbersep=9pt, 
+}
+
+\begin{titlepage}
+\renewcommand{\baselinestretch}{1}
+\centering
+\vspace{5cm}
+\textbf{\LARGE{Research into the feasibility of a new interferometer on MAST-U}} \\
+\vspace{0.75cm}
+\large{A dissertation submitted in partial fulfilment of the requirements for MSci Physics \\} 
+\vspace{1.5cm}
+\textbf{\Large{Christopher James Hickling}} \\
+\vspace{6.5cm} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8.5cm, height=8.5cm, keepaspectratio]{Images/CCFElogo.jpg}
+\includegraphics[width=10cm, height=10cm, keepaspectratio]{Images/ntulogo.jpg}
+\end{figure}    
+
+\large{School of Science and Technology} \\
+\large{Nottingham Trent University} \\
+\large{Clifton Lane} \\
+\large{Nottingham} \\
+\large{United Kingdom} \\
+\vspace{1cm}
+\large{2018}
+\end{titlepage}
+
+
+\tableofcontents
+\pagebreak
+\clearpage
+\pagenumbering{arabic}
+
+%----------------------------------------------------------------------------------------
+%	Abstract
+%----------------------------------------------------------------------------------------
+
+%\chapter{Abstract}
+%The aim of this project is to investigate and test the effectiveness of a new interferometer system for diagnostic purposes. This system is based on the use of a 1550nm laser diode \cite{KoheronLaserV1} interferometer system designed to measure the electron density of plasma in MAST-U (Mega Amp Spherical Tokamak - Upgrade).
+
+%----------------------------------------------------------------------------------------
+%	Introduction
+%----------------------------------------------------------------------------------------
+\chapter{Introduction}
+Interferometry is a powerful diagnostic technique that is currently employed on nearly all experimental fusion reactors worldwide. In some cases the interferometer system is part of the real time diagnostics, and the reactor will not be allowed to function without it, for safety reasons. For the purposes of this literature review, the reactor MAST (Mega Amp Spherical TOKAMAK) will be used, as this is the reactor that the system will be implemented on.\\
+The current interferometer system in place on MAST was designed by a group at Culham Center for Fusion Energy (CCFE), and later the detection method by Jakob Brunner, as part of his PhD project \cite{Brunner2017}. The thesis discusses the fundamentals and operation of the system. It also discusses many of the features that make the use of a $CO_{2}$ laser not ideal from a logistics and safety point of view, which results in only a single interferometer system being in place on the reactor. This means that only a single line profile of density can be obtained within the reactor. This is not a good representation of the density fluctuations in the reactor, and also only passes through the bulk plasma.\\
+The intention of this project is to test a new system that could replace the two colour system with with a 1550nm laser produced by Koheron \cite{KoheronLaserV1} along with Koheron's InGaAs photo detectors \cite{KoheronPD100Photodetector}. This will result in the system being more compact which will allow easier development of multiple lines of sight in addition to improving the safety of the system. %Since this set-up also doesn't require a glass viewing port as the CO$_{2}$ laser does, this can allow for the interferometer to also pass through more interesting (density wise) points of the plasma, e.g. the divertor.
+
+%----------------------------------------------------------------------------------------
+%	Literature Review
+%----------------------------------------------------------------------------------------
+
+\chapter{Literature Review}
+	\section{Nuclear Fusion}
+Nuclear Fusion is the act by which two small nuclei are in close enough proximity and have the necessary energy to overcome the coulomb barrier and to fuse them together. This process releases vast amounts of NET energy and so has been a pedestal of scientific advancement since the mid 20th century. Fusion research became a field in the 1930's, reactors had very low collisionality and were large, with energy losses to match. It wouldn't be until 1957 that fusion was actually achieved in a laboratory setting with the ZETA reactor, then based at Culham Centre for Fusion Energy. Although this was a huge milestone for fusion research, it revealed that achieving fusion with a NET positive energy output was no easy task. \\
+Soon after, the favoured reactor of choice called a Tokamak (loose transliteration of acronym: Toroidal Chamber with Magnetic Coils), came from a Russian group of scientists. Today this has developed into the development of many test reactors including; DIII-D \cite{AymarOverviewExperiment} , EAST \cite{Gao2008DiagnosticsTokamak} and now moving onto the first reactor that is predicted to have a NET positive energy, ITER \cite{Litaudon2017OverviewITER}. Tokamak's, however, are not the only form of reactor currently undergoing experimental research in an attempt to achieve fusion. There are also Stellarators, such as Wendelstein 7-X \cite{Klinger2016Wendelstein7-X}, which uses magnets in a complicated arrangement to force particles to follow a particular path, cancelling out major instabilities. Another method is to use Inertial Confinement Devices, such as the laser array at the National Ignition Facility \cite{Lindl1995DevelopmentGain}, which use many high powered lasers to deposit a large amount of energy into a small pellet of fuel. 
+\\
+Experiments up until this point had shown that plasma instabilities were common and ultimately a drain on a fusion's ability to self sustain its own reactions. This made fusion scientists realise that a large amount of data and diagnostics equipment is required to understand the physical principles at work inside the reactor.
+\pagebreak
+	\subsection{Underlying Physics}
+The amount of energy released from a nuclear fusion reaction is dictated by the mass of the individual atoms before the reaction, and the products after the reaction. \linebreak
+
+\begin{figure}[H]
+\includegraphics[width=0.9\textwidth, center]{Images/Bindingenergy.png}
+\caption{The average binding energy of nucleons against the number of nucleons. This shows that a transition from one light element to another results in a large energy deficit, this is released as energy in a fusion reaction \cite{Fastfission2008BindingNucleon}}
+\label{bindingenergy}
+\end{figure}
+
+As shown in \autoref{bindingenergy}, lighter elements have far less binding energy per nuclear than heavier elements. This means that, for example, combining two Hydrogen$^{1}$ atoms together will result in a Hydrogen$^{2}$ atom, plus an amount of energy that is released.
+
+\begin{equation}
+{^{1}H} + {^{1}H} = {^{2}_{1}H} + {^{1}_{0}e} + {\nu}^{-} + 0.42MeV
+\label{eq:H-H}
+\end{equation}
+\\
+The Equation \ref{eq:H-H} is known as a H-H reaction. This process continues but with exponentially decreasing energy release up to iron. Iron is the heaviest element that can be achieved via fusion while still having a positive net energy output. The largest amount of energy from a single reaction can be achieved by fusing two atoms and gaining the largest mass deficit possible. The largest of these being a Deuterium-Tritium (D-T) reaction \cite[p. 430]{Shultis2016FundamentalsEdition.}:
+
+\begin{equation}
+{^{2}_{1}H} + {^{3}_{1}H} = {^{4}_{2}He} + {^{1}_{0}n} + 14.1MeV
+\label{eq:D-T}
+\end{equation}
+
+In this reaction, the neutron inherits the energy as kinetic energy. Conveniently, the D-T reaction also has a high cross section for conditionality combined with a higher probability of the reaction occurring than other considered fuel sources such as H-H or D-D. This was shown in a paper by Lawson \cite{Christopherson1957SomeReactor} to be an inequality to represent the combination between temperature and reaction time. Very few reactors worldwide have attempted a D-T reaction, but those that have suffered significant damage from the high powered neutrons that have been released.
+
+	\section{Tokamak}
+Tokamak is an loosely translated acronym for a device developed by soviet Russia in the 1960's, it stands for \textbf{TO}roidal \textbf{CHA}mber with \textbf{MA}gnetic \textbf{C}oils. First results from such a machine were published in 1969 by two Russian scientists, Sakharov and Tamm \cite{Tamm1959TheoryI}. The Russian team managed to produce plasmas of a much higher stability than previously seen, and at temperatures up to 10 times higher than previously achieved. Since then, TOKAMAK development has been progressing, solving one problem at a time, but uncovering many new challenges in the fields of engineering, materials research and plasma physics \cite{Smirnov2010Tokamak19501990}.\\
+
+\begin{figure}[H]
+\includegraphics[width=\textwidth, center,angle=0]{Images/Tokamak.jpg}
+\caption{A schematic generalised Tokamak showing key features to its operation and function \cite{TokamakEUROfusion}.}
+\label{fig:Tokamakschem}
+\end{figure}
+
+As shown in \autoref{fig:Tokamakschem} a Tokamak is a collection of Toroidal and Poloidal magnets to generate a helical magnetic field. This is in combination with a central coil which acts as a primary transformer circuit, and the plasma, where moving electrons generate a current acting as a secondary transformer circuit. The magnets create magnetic pressure over the electrons as defined by the Lorentz Force.
+
+In general, the longer that a fusion plasma can be confined (under fusion conditions), the more probability of fusion reactions taking place. There are two main ways to increase confinement time; an increase of radius of a reactor or an increase in magnetic pressure. Magnets are currently approaching the limit of what we can achieve with superconducting technology, so the favoured solution is to increase the size of the reactor. For the purposes of analysing plasma phenomena and performing research a reactor just the right size to fit on all the diagnostics required is adequate, which is the reason behind the building of MAST \cite{Chapman2015OverviewResults}\\
+
+MAST is currently in the process of being upgraded into MAST-U, where is will have many improved features including a new divertor region that allows for more complex plasma configurations and longer path length, which allows the plasma to slow down (and cool down) before striking the divertor plate (\autoref{mastdivertors}, \cite{CulhamCenterforFusionEnergyResearch:Upgrade})
+
+\begin{figure}[H]
+\includegraphics[width=1\textwidth, center,angle=0]{Images/MASTUdivertors}
+\caption{MAST-U divertor regions derived by free vacuum boundary calculations. Shows 3 possible new configurations of the magnetic field and ion path passing through the divertor \cite{CulhamCenterforFusionEnergyResearch:Upgrade}.}
+\label{mastdivertors}
+\end{figure}
+
+	\section{Diagnostics}
+There are many forms of diagnostics in a fusion reactor. These can be separated into two different groups; Real Time Diagnostics (Langmuir Probes, Interferometry \cite{Brunner2017}, etc...) and Delayed Diagnostics (Thomson Scattering\cite{Scannell2008DesignMAST}, spectrometry, etc...). Real Time Diagnostics collect data, analyse it and feed it straight back into the system. They are used to make quick changes to try and harness instabilities or to cause a shut down if something goes wrong. Delayed Diagnostics aim to just collect data of a pulse in order for scientists to analyse it at a later time. This is useful for building an understanding of the physical process without sacrificing processing time to analysing data, only collecting it. 
+\medskip
+
+One of the main challenges of fusion research, currently, is to limit instabilities generated by Edge Localised Modes (ELMs). This is a disruptive instability that occurs in the edge of a reactor plasma. If ELMs are present in the ITER reactor to the same degree they exist in test reactors, this will catastrophically effect the performance of the machine \cite{Loarte2014ProgressOperation}. These instabilities can seriously damage the reactor wall (particularly divertor plates) as well as causing massive energy losses of the plasma. Ultimately instabilities such as this limit the time that a fusion reactor can run for.
+	
+	\section{Basic Interferometry}
+Interferometry is a method that has been used as a precise measuring tool for many real world applications at many scales such as the detection of gravitational waves \cite{AbbottObservationMerger} all the way down to the measurement of the velocity of blood using Optical Coherence Tomography \cite{Zhao2000Phase-resolvedSensitivity}. As will be discussed in subsequent chapters, it is a powerful diagnostic technique for fusion reactors.
+\begin{figure}[H]
+\includegraphics[width=1\textwidth, center,angle=0]{Images/michelsonint.png}
+\caption{A standard michelson interferometer experiment where a sodium lamp is used because of its narrow bandwidth. The movable mirror can be translated to produce constructions and de-constructions of interference fringes as can be seen on the viewing plate. The compensator is to account for the additional pass the movable mirror makes through the glass of the beam splitter so both paths are exposed to the same refractive index \cite{Michelsonimage}.}
+\label{fig:michelsonint}
+\end{figure}
+
+Interferometry was first developed by Michelson and Morley \cite{Michelson1887RelativeEther} as a distance measurement technique. It is the process by which two light waves interact with each other causing interference. In a standard Michelson interferometer, as show in \autoref{fig:michelsonint} , two beams of light go along differing paths and then recombine before being observed. If these paths are of a different length, which can be achieved by using a movable mirror, then a path difference can cause a change in the interference pattern seen. A plane wave can first originally be described as: 
+
+\begin{equation}
+E(x,t) = E_{0}\cos{(\omega t - kx)}
+	\label{eq:planewave}
+\end{equation}
+Where $E$ is amplitude, $E_{0}$ is the maximum amplitude of the wave, $\omega$ is the frequency and $k = \frac{2\pi}{\lambda}$, $t$ and $x$ are the positions of the wave in time and 1 dimension, respectively.
+Where the overall intensity of the wave can be written as:
+\begin{equation}
+I \propto <E^{2}>
+	\label{eq:intensitypw}
+\end{equation}
+Since this wave originates from a single light source, but is split into two different beam paths which travel independent distances this can then be described as:
+\begin{equation}
+E_{1}(x,t) = \frac{E_{0}}{\sqrt[]{2}}\cos{\Big(\omega t - k(2L_{1} - L_{o})\Big)}
+	\label{eq:planewave1}
+\end{equation}
+and
+\begin{equation}
+E_{2}(x,t) = \frac{E_{0}}{\sqrt[]{2}}\cos{\Big(\omega t - k(2L_{2} - L_{o})\Big)}
+	\label{eq:planewave2}
+\end{equation}
+Where $L_{1}$ and $L_{2}$ are the distances from the beam splitter to each mirror, respectively, and $L_{o}$ is the distance from the beam splitter to the observer.
+By combining the waves described by equations \ref{eq:planewave1} and \ref{eq:planewave2} together the superposition of the waves can be described by the following equation at the point of the viewing plate:
+\begin{equation}
+I_{v} = I_{0} \cos^{2}{\Big(\frac{2\pi}{\lambda}(L_{1} - L_{2})\Big)}
+	\label{eq:finalwave}
+\end{equation}
+This shows us that maxima and minima can be seen when the $\cos^{2}$ function is equal to 1 or 0 and such the following relationships can be stated:
+\begin{equation}
+Maximum: \Delta L = L_{1} - L_{2} = \frac{n*\lambda}{2}
+	\label{eq:fringesmax}
+\end{equation}
+\begin{equation}
+Minimum: \Delta L = L_{1} - L_{2} = \frac{(n+\frac{1}{2})*\lambda}{2}
+	\label{eq:fringesmin}
+\end{equation}
+Where $n = 0, 1, 2, 3, ...$ \\
+As such, this shows that the maximum and minimum will occur if there are changes in length of one of the beam paths. The difference between a maximum and a minimum in this system always relates to a distance of a half wavelength, hence, by knowing the wavelength of the light, the displacement of the mirror can be known.\\
+
+	\subsection{Heterodyne Interferometry}
+The phase change information caused by a moving mirror can also be gathering by using the doppler effect of light. Unfortunately, currently electrical components cannot measure the temporal resolution with the required sensitivity to see this effect with a single wavelength, so a second is implemented. A heterodyne interferometer is a system that that uses two different wavelength light sources into a single interferometer set up. When the the two different frequencies of light strike the mirror and then interfere, a beat frequency is produced. This beat frequency can be observed on a much smaller frequency scale yet still has the same relationship to the movement of the mirror.
+
+\begin{figure}[H]
+\includegraphics[width=0.8\textwidth, center,angle=0]{Images/heterodyne_system.jpg}
+\caption{Schematic of a standard heterodyne displacement measuring system where a reference mirror is used to account for an identical beam path length and the second mirror is the addition of the original frequency to a doppler shift caused by the mirror moving \cite{HeterodyneInterferometer}.}
+\label{fig:heterodynesystem}
+\end{figure}
+
+As can be seen in \autoref{fig:heterodynesystem}, the fundamental set up is identical to the Michelson Interferometer, but with the addition of a two-frequency laser. This results in the movable mirror causing a frequency shift in the frequency $f_{2}$ by $\Delta f$. This results in the relationship to the beat frequency:
+\begin{equation}
+f_{beat} = f_{1} - (f_{2} + \Delta f)
+	\label{eq:dopplershift}
+\end{equation}
+Heterodyne interferometry has some clear advantages over homodyne, in that it is less sensitive to laser power fluctuations, ambient light and other noise inputs into the system. Only a single detector is needed to detect the direction and the magnitude of the displacement of the mirror. This does come at the cost that a very precise two-wavelength laser is required for good results along with more complex forms of data handling and electrical components.
+    
+    \section{Interferometry In Plasma}
+Interferometry is a diagnostic tool that has been used in many different fusion reactors around the world. It's purpose is to measure the electron density of the plasma. This can be achieved because the plasma has a refractive index which is proportional to its density, which means the greater the refractive index, the slower the light will travel through it. This simulates the movement of a mirror on a translation stage as used in previous examples of heterodyne and homodyne interferometers. Starting from the dielectric constant of a gaseous medium:
+
+\begin{equation}
+\epsilon = 1 + \frac{ne^{2}}{\epsilon _{0} m_{e} (\omega _{0}^{2} - \omega ^{2})}
+	\label{eq:DEgas}
+\end{equation}
+
+Where $\omega$ is the wave frequency, n is the number density of some particles of charge e. $m_{e}$ is the mass of the electron and $\omega _{0}$ is the natural frequency of the atom.
+Slightly adjust equation \ref{eq:DEgas} by considering the particles to be electrons, $n_{e}$, to set the value of $\omega_{0}$ to 0 as electrons have no natural frequency, and by substituting in $\omega _{p}^{2} = \frac{n_{e}e^{2}}{\epsilon _{0} m_{e}}$ the equation yields:
+
+\begin{equation}
+\epsilon = 1 - \frac{\omega _{p}^{2}}{\omega ^{2}}
+	\label{eq:DEgas}
+\end{equation}
+
+The phase velocity, which is the speed of the propagation of the wave can be described by.
+\begin{equation}
+v_{p} = \frac{\omega}{k}
+	\label{eq:phasevelocity}
+\end{equation}
+Where $k = \frac{2\pi}{\lambda}$, $\omega$ is the frequency of the wave propagating through the plasma.
+
+The phase velocity of a light wave passing through a medium can also have its phase velocity characterised by:
+\begin{equation}
+v_{p} = \frac{c}{\sqrt[]{\epsilon}}
+	\label{eq:phasevelocitylight}
+\end{equation}
+By re-arranging \ref{eq:phasevelocitylight} for $\epsilon$ and substituting it into \ref{eq:phasevelocity} the following relationship can be found:
+
+\begin{equation}
+\epsilon = \frac{k^{2}c^{2}}{\omega ^{2}}
+	\label{eq:dielectriccst}
+\end{equation}
+
+This equation (\ref{eq:dielectriccst}) can then be set equal to \ref{eq:DEgas} and solved for $\omega ^{2}$ to find the plasma dispersion relationship.
+
+\begin{equation}
+\omega ^{2} = k^{2}c^{2} + \omega _{p}^{2}
+	\label{eq:dispersionrelation}
+\end{equation}
+
+Since we know that the group velocity of a wave can be characterised by:
+\begin{equation}
+v_{g} = \frac{\partial \omega}{\partial k}
+	\label{eq:groupvelocity}
+\end{equation}
+
+By using the dispersion relation it can be said that the phase velocity of high frequency waves that are propagating through the plasma can be described by:
+\begin{equation}
+v_{p} = \frac{c}{\sqrt[]{1-\frac{\omega _{p}^{2}}{\omega ^{2}}}}
+	\label{eq:highfreqprop}
+\end{equation}
+
+By differentiating the plasma dispersion relation \ref{eq:dispersionrelation} to find the group velocity and then multiplying the group velocity by the phase velocity:
+\begin{equation}
+v_{g} v_{p} = \frac{\omega}{k} \frac{\partial \omega}{\partial k} = c^{2}
+	\label{eq:groupbyphase}
+\end{equation}
+
+Then solving \ref{eq:groupbyphase} for the group velocity yields:
+\begin{equation}
+v_{g} = \frac{c^{2}}{v_{p}} = \frac{c^{2}}{\frac{c}{\sqrt[]{1-\frac{\omega _{p}^{2}}{\omega ^{2}}}}}
+	\label{eq:groupvelocityplasma}
+\end{equation}
+Which finally simplifies to the following
+\begin{equation}
+v_{g} = c \Big(\sqrt[]{1-\frac{\omega _{p}^{2}}{\omega ^{2}}} \Big)
+	\label{eq:groupvelocityplasma}
+\end{equation}
+
+This shows that if the plasma frequency is ever less than the frequency of the light that is propagating, the group velocity will become imaginary, hence propagation will not take place - the plasma will be completely reflective. Fortunately, in a reactor the high electron density for all considered wavelengths (Visible - Infrared) results in a transparent medium that has a refractive index proportional to density. This allows the measurement of the density of plasma along a integrated line of sight.\\
+
+One issue which was found in early research is that fusion reactors actually have a mechanical vibration that also incorporates the moving mirror aspect of the previously mentioned interferometers. This will add an additional component to the overall phase shift.
+
+    \subsection{Interferometry In MAST-U}
+Currently in MAST-U (Mega Amp Spherical Tokamak - Ugrade) a heterodyne system is in place. This consists of a $CO_{2}$ laser in combination with a HeNe laser integrated with a FPGA system designed by J.K.Brunner \cite{Brunner2017}. So long as the modulation frequency of each of the lasers is known to a high precision, the plasma density can then be derived by a calculation of relative phase between the two paths of the $CO_{2}$ laser. One of the largest limitations to this system is the temperature dependence of the $CO_{2}$ laser. The laser needs to be cooled otherwise it will have slight fluctuations in its output which will affect the phase calculation.\\
+Another limitation is the cost of the $CO_{2}$ laser, as it is very expensive and requires a large amount of maintenance. The wavelength of the laser is chosen to have strong interaction with the plasma, but unfortunately it also has strong interaction with human skin and eyes. As a result this laser has very strict safety precautions and requirements that come with its installation.    
+
+\begin{figure}[H]
+\includegraphics[width=\textwidth, center,angle=0]{Images/mastuint.JPG}
+\caption{A schematic of the interferometer currently in place on MAST-U \cite{Brunner2017}.}
+\label{MAST-UInt}
+\end{figure}
+
+
+The MAST-U interferometry system as shown in figure \autoref{MAST-UInt} currently uses a $CO_{2}$ heterodyne system in combination with a $HeNe$ homodyne system. Both beams enter the plasma, passing through the bulk and perform a double pass due to collision with the retro reflector, an 80kg granite sphere. In this system an Acousto-Optical Modulator (AOM) is used to generate an additional frequency that is used to modulate the frequency of the $CO_{2}$ laser, in this case by 40MHz. This allows the $CO_{2}$ laser to act as two independent wavelengths to fulfil the frequency shift requirement of equation \ref{eq:dopplershift}.
+
+    \subsection{Measuring Electron Density using Interferometry}
+In a plasma the optical path in a double pass interferometer (passing through the plasma twice) can be calculated according to the following equation \cite[p.~26]{Brunner2017} :
+
+\begin{equation}
+	\Delta s = 2 \int_{0}^{L} [N_{air} - N_{pl}(l)]dl \approx 2 \int_{0}^{L} \Bigg[1 - \sqrt[]{1-\frac{\omega_{pe}^{2}}{\omega^{2}}}\Bigg]
+	\label{eq:opticalpathint}
+\end{equation}
+
+Where $N_{pl}$ denotes the plasma's refractive index that already includes the visible light approximation. $N_{air}$ is the refractive index of air. $\omega$ is the frequency of the laser and $\omega_{pe}$ is the frequency of the plasma. This can then be expanded by assuming that the plasma frequency is much less than the frequency of the laser to achieve:
+
+\begin{equation}
+	\Delta\phi_{pl} = \frac{\lambda e^{2}}{2 \pi c^{2} \epsilon_{0} m_{e}} \int_{0}^{L} n_{pl} (l) dl
+	\label{eq:plasmaphase}
+\end{equation}
+
+\begin{equation}
+	\int_{0}^{L} n_{pl} (l) dl = \frac{2 \pi c^{2} \epsilon_{0} m_{e}}{\lambda e^{2}} \Delta\phi_{pl} = \frac{\lambda n_{c}}{2 \pi} \Delta\phi_{pl}
+	\label{eq:phaseintegral}
+\end{equation}
+\\
+Where $\Delta\phi_{pl}$ is the phase difference between the two interferometer arms. $\lambda$ is the wavelength of the laser used. e and c are the electron charge and the speed of light in a vacuum, respectively. $\epsilon$ permittivity of free space and $m_{e}$ is the mass of the electron. $n{pl}$ is the density of the plasma, which in an ideal hydrogen plasma can be defined entirely by the density of the electrons as the Debye length of the ions is on too large a scale for the measurement to make a contribution. 
+
+This now gives a viable way to calculate the change in phase of a laser passing through plasma. Providing the precise distance of the beam path within the reactor is known with a precision to the order of the wavelength of the laser. Unfortunately the vibration of the machine causes this value to fluctuate causing uncertainty in the phase. For this reason two different colour lasers that follow the same beam path must be implemented. One must interact strongly with the plasma and the wall, the other must interact weakly with the plasma and strongly with the wall.
+	
+    
+    \subsection{Measuring Electron Density Accounting for the Vibration of the Wall}
+There are two causes for a change in optical path in an interferometer system; a change in refractive index, or a change in physical length (vibration). Both of these are occurring simultaneously within a reactor and so both have to be accounted for. This can be done by considering total phase change to be the superposition of the vibrational phase change and the phase change due to the refractive index (plasma).
+
+\begin{equation}
+	\Delta\phi = \Delta\phi_{pl} + \Delta\phi_{vib}
+	\label{eq:superposphasediff}
+\end{equation}
+
+Where $\phi$ is the total phase change, and $\Delta\phi_{pl}$ and $\Delta\phi_{vib}$ are the phase changes caused by the plasma and the vibrations of the machine respectively. Because a change in length causes a linear change in phase for a laser that interacts strongly with the wall, the change in phase due to the vibrations can easily be characterised by a change in length divided by the wavelength of laser sensitive to vibrations in the machine, such that:
+
+\begin{equation}
+	\Delta\phi_{vib} = \frac{2\pi}{\lambda} \Delta\lambda
+	\label{eq:vibphasediff}
+\end{equation}
+
+Combining the equation derived for a single laser passing through the plasma \ref{eq:plasmaphase}, the superposition of the vibration and plasma phase \ref{eq:superposphasediff} and the vibrational phase \ref{eq:vibphasediff} a complete equation for phase shift can be formed:
+
+\begin{equation}
+	\Delta\phi = \frac{\lambda_{s} e^{2}}{2 \pi c^{2} \epsilon_{0} m_{e}} \int_{0}^{L} n_{pl} (l) dl + \frac{2\pi}{\lambda^{r}} \Delta l
+	\label{eq:heterophasediff}
+\end{equation}
+
+Since the relationship between the phase of the two lasers observe an inversely proportional relationship it is possible for only density information $n_{pl}$ to be extracted. This can be done by making $\Delta l$ the subject:
+
+\begin{equation}
+	\Delta l = \frac{\Delta\phi - \frac{\lambda _{s} e^{2} \int_{0}^{L} n_{pl} (l) dl }{2 \pi c^{2} \epsilon_{0} m_{e}}}{2 \pi} 
+	\label{eq:deltal}
+\end{equation}
+
+and substituting in for the classical electron radius $r_{ce} = \frac{e^{2}}{2 \pi c^{2} \epsilon_{0} m_{e}}$ gives an equation of the form:
+
+\begin{equation}
+	\Delta l = \frac{\Delta\phi - \lambda r_{ce} \int_{0}^{L} n_{pl} (l) dl}{2 \pi}  
+	\label{eq:deltalrce}
+\end{equation}
+
+By now considering two lasers of different wavelengths, $\lambda _{1}$ and $\lambda _{2}$, that follow identical beam paths and there for the same exposure to mechanical vibrations, $\Delta l$ will be equal. These two equations can then be equated:
+
+\begin{equation}
+	\frac{\Delta\phi _{1} - \lambda _{1} r_{ce} \int_{0}^{L} n_{pl} (l) dl}{2 \pi}  = \Delta l = \frac{\Delta\phi _{2} - \lambda _{2} r_{ce} \int_{0}^{L} n_{pl} (l) dl}{2 \pi}  	\label{eq:deltalequate}
+\end{equation}
+
+and then solved for the line integrated plasma density, $\int_{0}^{L} n_{pl} (l) dl$, yielding:
+
+\begin{equation}
+\int_{0}^{L} n_{pl} (l) dl = \frac{1}{r_{ce}} \frac{\Delta\phi _{1} \lambda _{1} - \Delta\phi _{2} \lambda _{2}}{\lambda _{2}^{2} - \lambda _{1}^{2}}	
+    \label{eq:LIPD}
+\end{equation}
+
+As a result of equation \ref{eq:LIPD}, the line integrated plasma density can be calculated from two values of change in phase using two different wavelengths. This takes into account mechanical vibrations, which are factored into $\Delta \Phi$ by equation \ref{eq:superposphasediff}.
+
+	\section{Field Programmable Gate Array's (FPGA's)}
+FPGA's are a simple and effective way to collect and analyse data. They have numerous advantages over standard processing devices as they are designed to compute a single pre-programmed task, as unlike a Central Processing Unit (CPU) which is designed to use logic to solve a specific task. The use of an FPGA is becoming more common in fusion applications as the need to perform real time filtering \cite{Naylor2010AnMAST} and processing on data is becoming a greater concern for plasma control systems to allow the safe operation of reactors. Many different forms of FPGA's have been used in the fusion industry for real time application.
+	\subsection{Red Pitaya}
+    
+The Red Pitaya (RP) \cite{Leban2014RedManual} is a micro controller that has built in FPGA capabilities. This is further simplified by Koheron by designing software for the RP to run, which includes an oscilloscope and spectrum analysis software as well as control of the laser's modulation frequency and current, through a simple interface.
+
+%The Red Pitaya (RP) \cite{Leban2014RedManual} is a open source micro controller with a built in Field Programmable Gate Array (FPGA) with a very user friendly user interface. It operates two inputs and two outputs at 125MS/s. FPGA's are notorious for being difficult to program as they are intrinsically complicated. The stand out function of a FPGA is the way it processes information. It can perform many tasks in parallel pipelined processing i.e. performing the same operation on many data sets. The number of parallel pipelines that can be implemented depends entirely on the hardware limitations of the FPGA. This often means that the limiting factor of the speed at which a RP can process data is the speed at which you can transmit data to it. This gives FPGA's a large advantage over conventional computers when it comes to real time data applications.
+
+\begin{figure}[H]
+\includegraphics[width=0.9\textwidth, center,angle=0]{Images/RP.JPG}
+\caption{The Red Pitaya showing all the connected ports. Each of the analogue ports can sample at 125MHz \cite[p.~7]{Leban2014RedManual}.}
+\label{RP}
+\end{figure}
+
+\begin{table}[H]
+	\setlength\arrayrulewidth{1pt}
+    \rowcolors{2}{gray!25}{white}
+    \begin{tabular}{ c c c c } 
+        Name & Type & Connector & Description\\
+        \hline
+        IN1/IN2 & Input & SMA-F & RF input(High-Z, 1M$\Omega$ // 10pF\\[1pt]
+        OUT1 / OUT2 & Output & SMA-F & RF output (50$\Omega$)\\[1pt]
+        Ethernet & Full Duplex & RJ45 & 1000 Base-T Ethernet Connection\\[1pt]
+        USB & Full Duplex & A USB & Used for standard USB Devices\\[1pt]
+        Micro USB (Console) & Full Duplex & Micro B USB & Used for console connection\\[1pt]
+        Micro USB (Power) & Input & Micro B USB & 5V / 2A power supply\\[1pt]
+        Micro SD & Full Duplex & Micro SD slot & Micro SD memory card\\
+    \end{tabular}
+    \caption{Full Specifications of the Red Pitaya's input/output ports. Both fast analogue inputs and fast analogue outputs operate at 125MHz per channel \cite[p.~7]{Leban2014RedManual}.}
+    \label{RPspec}
+\end{table}
+
+\section{Koheron}
+Koheron have developed a laser board which connects to the Red Pitaya that can simulate the AOM in \autoref{MAST-UInt}. It does this by using a fibre optic cable to generate a frequency modulation that results in a beat frequency \cite{KoheronAmplitudeKoheron}. Initial investigations at CCFE \cite{Hickling2017InvestigationMAST-U} have shown this method to show a strong interference pattern and the use of the RP and Koheron software is easy and accessible. There is a large amount of support and development occurring constantly so any new problems found can be fixed. In this investigation it was shown that the basic interferometer set up from Koheron is not currently sensitive enough to physical vibrations on the order of 10's of KHz. It was found that this may be due to the lack of any high order modulation of the laser due to an Acousto-Optical Modulator, as discussed by J. Brunner \cite[p. ~29]{Brunner2017}. Due to this, an AOM may be required for detection of the required beat frequency, however the benefits of this system are still apparent over the use of a $CO_{2}$ laser system. Many aspects of this system will need to be characterized before it can be considered as a functional system for the measurement of density.
+
+%----------------------------------------------------------------------------------------
+%	Aims and Objectives
+%----------------------------------------------------------------------------------------
+
+	\chapter{Aims and Objectives}
+The literature review has outlined key goals in the development and testing of a new interferometer diagnostic device. It is known that the device currently installed on MAST-U, while effective, has significant drawbacks. It has been shown by previous research \cite{Hickling2017InvestigationMAST-U} that the Red Pitaya / Koheron based system can measure the phase difference of a heterodyne system. It is still unknown if it can do this with enough precision to make it a valid candidate to the replacement of the interferometry system currently on MAST-U. In an attempt to characterise a new system for installation tests will need to be run to assure that the phase noise, which will ultimately dictate its effectiveness, will need to be on the order of approximately 10 milliRads in order to detect any useful densities. As such, this project will be to characterise and minimise any noise that is in this system. \\
+
+\begin{center}
+\begin{ganttchart}{1}{12}
+  \gantttitle{Aims and Objectives (Weeks)}{12} \\
+  \gantttitlelist{1,...,12}{1} \\
+  \ganttbar{Task 1}{1}{1} \\ %Lit Study
+  \ganttlinkedbar{Task 2}{2}{3} \\ %Analyse Error in free space (repeat tom)
+  \ganttlinkedbar{Task 3}{4}{5} \\ %Analyse error in fibre
+  \ganttlinkedbar{Task 4}{6}{7} \\ %increase fibre length to 25m and repeat task 3
+  \ganttlinkedbar{Task 5}{8}{9} \\ %Test on plasma at NTU?
+  \ganttlinkedbar{Task 6}{10}{12} %Documentation for CCFE and NTU
+%  \ganttmilestone{Milestone}{7} \ganttnewline
+  %\ganttlink{elem1}{elem2}
+  %\ganttlink{elem1}{elem3}
+  \end{ganttchart}
+\\
+\end{center}
+This Gantt chart to show the tasks involved in the execution of this project. Details about each individual task can be seen in \autoref{tbl:tasks}.
+\begin{center}
+\begin{table}[H]
+	\setlength\arrayrulewidth{1pt}
+    %\rowcolors{2}{gray!25}{white}
+    \begin{tabular}{|p{1cm}|p{2.5cm}|p{9cm}|p{1.5cm}|}
+    			\hline
+    	        Task & Objective & Description & Duration (Weeks)\\
+                \hline
+                1 & Literature Study & Background Study into heterodyne interferometer systems making comparisons of the benefits and drawbacks including the mathematical frame work for plasma interferometry. & 1\\
+                \hline
+                2 & Analyse the error sources using free space& Analyse standard deviation of different phase noise sources while adjusting the length of exposed free space. Decide if the laser will be appropriate for use in current state on MAST-U.  & 2\\
+                \hline
+                3 & Analyse the error sources using fibre optics& Compare results to free space using the interferometer system described in J. Brunner's Thesis, \autocite{Brunner2017}. Attempt to achieve a phase error of 3$mRad$ or less.& 2\\
+                \hline
+                4 & Repeat Task 3 with varying length fibres (up to 25m)& Analysing the error sources using a much longer fibre to better simulate the beam paths that would be used on MAST-U. Attempt to maintain the same error. & 2\\
+                \hline
+                5 & Test on plasma device & Test the system on an actual plasma device to see the variation in density to attempt to characterise the plasma. & 2\\
+                \hline
+                6 & Docume- ntation & Full documentation of work performed and results obtained for use by CCFE and also for handing in of dissertation. & 3\\
+        \hline
+	\end{tabular}
+    \caption{Detailed evaluation of each task that must be undergone for successful completion of the project.}
+    \label{tbl:tasks}
+\end{table}
+\end{center}
+
+%----------------------------------------------------------------------------------------
+%	Methodology
+%----------------------------------------------------------------------------------------
+\chapter{Method}
+As discussed in \cite{KoheronAmplitudeKoheron} a frequency modulation can also be induced into a system by the addition of a small fibre optic extension to an arm of a interferometer. This can be seen in \autoref{koheronfmod}.
+
+\begin{figure}[H]
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/koheronfmod.JPG}
+\caption{Experiment designed by Koheron where a 1m fibre extension can be used to create a frequency modulation when interfered with the original light source.}
+\label{koheronfmod}
+\end{figure}
+
+This system is attractive as it removes the requirement of needing an AOM to modulate the frequency of the scene interferometer laser. Unfortunately, preliminary testing has shown that the phase noise of this system is too high to detect a 10KHz vibration produced by a speaker \cite{Hickling2017InvestigationMAST-U}. In order to improve the phase noise an AOM has been employed into the system to measure the effectiveness of the 1550nm laser provided by Koheron. 
+\begin{figure}[H]
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/intconfig1.JPG}
+\caption{Experimental set up designed to test the noise present in the phase.}
+\label{intconfig1}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
+%	Results
+%----------------------------------------------------------------------------------------
+\chapter{Results}
+
+%----------------------------------------------------------------------------------------
+%	Analysis
+%----------------------------------------------------------------------------------------
+\chapter{Analysis}
+
+%----------------------------------------------------------------------------------------
+%	Discussion
+%----------------------------------------------------------------------------------------
+\chapter{Discussion}
+
+%----------------------------------------------------------------------------------------
+%	Conclusion
+%----------------------------------------------------------------------------------------
+\chapter{Conclusion}
+
+%----------------------------------------------------------------------------------------
+%	Bibliography
+%----------------------------------------------------------------------------------------
+\pagebreak
+\chapter{Bibliography}
+	\printbibliography[heading=none]
+
+\pagebreak
+
+%----------------------------------------------------------------------------------------
+%	Appendix
+%----------------------------------------------------------------------------------------
+
+\pagenumbering{roman}
+\setcounter{page}{2}
+\begin{appendices}
+
+%\includepdf[pages={ - }]{ChristopherHicklingSummerProject.pdf}
+\end{appendices}
+
+\end{document}
