@@ -515,7 +515,7 @@ This Gantt chart to show the tasks involved in the execution of this project. De
 %----------------------------------------------------------------------------------------
 %	Methodology
 %----------------------------------------------------------------------------------------
-\chapter{Method}
+\chapter{Experimental}
 As discussed in \cite{KoheronAmplitudeKoheron} a frequency modulation can also be induced into a system by the addition of a small fibre optic extension to an arm of a interferometer. This can be seen in \autoref{koheronfmod}.
 
 \begin{figure}[H]
@@ -525,26 +525,114 @@ As discussed in \cite{KoheronAmplitudeKoheron} a frequency modulation can also b
 \end{figure}
 
 This system is attractive as it removes the requirement of needing an AOM to modulate the frequency of the scene interferometer laser. Unfortunately, preliminary testing has shown that the phase noise of this system is too high to detect a 10KHz vibration produced by a speaker \cite{Hickling2017InvestigationMAST-U}. In order to improve the phase noise an AOM has been employed into the system to measure the effectiveness of the 1550nm laser provided by Koheron. 
-\begin{figure}[H]
+
+\begin{figure}[H] 
 \includegraphics[width=0.9\textwidth, center,angle=0]{DImages/intconfig1.JPG}
-\caption{Experimental set up designed to test the noise present in the phase.}
+\caption{Experimental set up designed to test the noise present in the phase using only fibre optics.}
 \label{intconfig1}
 \end{figure}
+
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/intconfig2.JPG}
+\caption{Experimental set up designed to test the noise present in the phase while employing a free space portion of the path which allows the measurement of some medium with refractive index as well as physical vibrations.}
+\label{intconfig2}
+\end{figure}
+
+With the introduction of the AOM \cite{Sell1550MODULATORb} as seen in \autoref{intconfig1} half of the signal of the laser is modulated by a clean 40MHz sine wave which is produced by a signal generator. It is necessary for the stability of the modulation to be high as the detected wave has a strong dependence on a stable beat frequency defined by the mixing of two different frequency signals.
+
+\begin{center}
+\begin{table}[H]
+	\setlength\arrayrulewidth{1pt}
+    %\rowcolors{2}{gray!25}{white}
+    \begin{tabular}{|p{2.5cm}|p{12.6cm}|}
+    	\hline
+    	Component & Function\\
+       	\hline
+        Laser & The 1550nm laser \cite{KoheronLaserV1} is provided by Koheron and is designed to have a maximum output of 3mW. This results in the laser being listed as class 1 and this confirms its safe use with a minimal amount of safety equipment or restrictions. The laser does has a line width of 6MHz which may prove to be too large for this application, as such the scope of this chapter will be to discuss the suitability of this component. \\
+        \hline
+        Fibre Optic Splitters & Used to split an incoming electromagnetic wave \cite{1x2Koheron} where approximately 50$\%$ of the light passes down each of the two fibres. This is imperative for the system as it makes the laser common among all parts of the beam path. This means that if the laser is exposed to any kind of internal fluctuation it is common and therefore should not significantly affect the results.\\
+		\hline
+        Circulator & The circulator \cite{FiberKoheron} is sources by Koheron and it's function is to allow exit and re-insertion into the fibre system from the same point within the system. It manages to achieve this with near 100$\%$ efficiency. It does this by a module which is sensitive to the direction of the incident light, such that light can travel from port 1 to port 2 and from port 2 to port 3, but not from 1 to 3. This allows for the sending of the light out into free space and then return it back into the fibre system.\\
+        \hline
+        Collimator & The appropriate collimator \cite{Air-SpacedSMA} for 1550nm is employed so collimate the light once it exits the fibre. This is important as if the light is uncollimated the losses due to divergence across free space become significant. The selected collimator has a divergence angle of 0.016 degrees. Across 2m this will result in a 3.2cm divergence of spot radius, which will be very significant. In larger free space systems a correction lens will need to be applied.\\
+        \hline
+	\end{tabular}
+    \caption{Table of components that are present in the schematic shown in  \autoref{intconfig1} and \autoref{intconfig2} with detailed descriptions of the function and choice of each component. [1/2]}
+    \label{tbl:components1}
+\end{table}
+\end{center}
+
+\begin{center}
+\begin{table}[H]
+	\setlength\arrayrulewidth{1pt}
+    %\rowcolors{2}{gray!25}{white}
+    \begin{tabular}{|p{2.5cm}|p{12.6cm}|}
+    	\hline
+    	Component & Function\\
+       	\hline
+        Retroreflector & A standard retroreflector (sometimes called a "Corner Cube") is employed to reduce the difficulty of alignment in free space. It functions by having 3 highly reflective surfaces that all meet perpendicularly to form a vertex, this resembles in internal corner of a cube. All light that strikes any one of these reflective surfaces will be sent back on a beam path that is parallel to the incident beam. \\
+        \hline
+        Acousto-Optical Modulator & The AOM \cite{Sell1550MODULATORb} chosen for this system is a  T-M040-0.5C8J-3-F2S designed to modulate the signal of the input 1550nm signal by 40MHz. It has a low insertion loss of 2.5dB and upshifts the frequency of the incoming light by 40MHz. This results in a wavelength change of $~0.32pm$. \\
+        \hline
+        PD100 Photo detector & The PD100 designed by Koheron \cite{KoheronPD100Photodetector} is a low noise photodetector that has a maximum input of 1.5mW. This signal can then be output electronically by an SMA connection for data processing.\\
+        \hline
+        FPGA Digitisation Board & The data collection is processed by a SPEC board and a SP605 as designed by Jakob Brunner as the aim of his thesis \cite{Brunner2017}. The SPEC board takes an input of the PD100 and send the data to the SP605 using the FPGA process of Xilybus. The SP605 then performs a CORDIC phase algorithm to extract useful information from the signal which includes the phase. The SPEC board requires 2 signals, a scene and a reference. The scene is provided by the portion of the interferometer that passes through free space, and the reference is provided by the signal generator (AOM Driver). It then calculated the difference between the phase of these two signals.\\
+        \hline
+        AOM Driver & The AOM is driven by the use of a Red Pitaya \cite{Leban2014RedManual} which can generate a 40MHz signal for the use of the modulation. It does this through the use of 1 of its 2 Digital to Analogue converters which can output at 125 MHz. This provides the signal to the AOM and also to the reference.\\
+        \hline
+	\end{tabular}
+    \caption{Table of components that are present in the schematic shown in  \autoref{intconfig1} and \autoref{intconfig2} with detailed descriptions of the function and choice of each component. [2/2]}
+    \label{tbl:components2}
+\end{table}
+\end{center}
+
+
+%----------------------------------
+%	Phase Noise
+\section{Phase Noise}
+Phase noise is the major component that ultimately describes the resolution of the phase. Phase noise has many different contributing factors in the system and all of the factors that contribute towards phase (discussed in 2.5) also have contributing factors to phase noise. 
+%----------------------------------------------------------------------------------------
+%	Red Pitaya
+%----------------------------------------------------------------------------------------
+
+\chapter{Red Pitaya}
 
 %----------------------------------------------------------------------------------------
 %	Results
 %----------------------------------------------------------------------------------------
-\chapter{Results}
+\section{Results}
 
 %----------------------------------------------------------------------------------------
 %	Analysis
 %----------------------------------------------------------------------------------------
-\chapter{Analysis}
+\section{Analysis}
 
 %----------------------------------------------------------------------------------------
 %	Discussion
 %----------------------------------------------------------------------------------------
-\chapter{Discussion}
+\section{Discussion}
+
+%----------------------------------------------------------------------------------------
+%	New Laser
+%----------------------------------------------------------------------------------------
+
+\chapter{New Laser}
+
+%----------------------------------------------------------------------------------------
+%	Results
+%----------------------------------------------------------------------------------------
+\section{Results}
+
+%----------------------------------------------------------------------------------------
+%	Analysis
+%----------------------------------------------------------------------------------------
+\section{Analysis}
+
+%----------------------------------------------------------------------------------------
+%	Discussion
+%----------------------------------------------------------------------------------------
+\section{Discussion}
+
 
 %----------------------------------------------------------------------------------------
 %	Conclusion
