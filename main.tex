@@ -62,6 +62,7 @@
 ]{biblatex}
 
 \usepackage{pgfgantt}
+\usepackage{subcaption}
 
 \addbibresource{Mendeley.bib} 
 
@@ -82,10 +83,10 @@
     morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
     identifierstyle=\color{black},
     stringstyle=\color{red},
-    commentstyle=\color{mygreen},
+    commentstyle=\color{orange},
     showstringspaces=false,
     numbers=left,
-    numberstyle={\tiny \color{black}},
+    numberstyle={\small \color{black}},
     numbersep=9pt, 
 }
 
@@ -117,6 +118,8 @@
 
 
 \tableofcontents
+\listoffigures
+\listoftables
 \pagebreak
 \clearpage
 \pagenumbering{arabic}
@@ -146,7 +149,7 @@ Nuclear Fusion is the act by which two small nuclei are in close enough proximit
 Soon after, the favoured reactor of choice called a Tokamak (loose transliteration of acronym: Toroidal Chamber with Magnetic Coils), came from a Russian group of scientists. Today this has developed into the development of many test reactors including; DIII-D \cite{AymarOverviewExperiment} , EAST \cite{Gao2008DiagnosticsTokamak} and now moving onto the first reactor that is predicted to have a NET positive energy, ITER \cite{Litaudon2017OverviewITER}. Tokamak's, however, are not the only form of reactor currently undergoing experimental research in an attempt to achieve fusion. There are also Stellarators, such as Wendelstein 7-X \cite{Klinger2016Wendelstein7-X}, which uses magnets in a complicated arrangement to force particles to follow a particular path, cancelling out major instabilities. Another method is to use Inertial Confinement Devices, such as the laser array at the National Ignition Facility \cite{Lindl1995DevelopmentGain}, which use many high powered lasers to deposit a large amount of energy into a small pellet of fuel. 
 \\
 Experiments up until this point had shown that plasma instabilities were common and ultimately a drain on a fusion's ability to self sustain its own reactions. This made fusion scientists realise that a large amount of data and diagnostics equipment is required to understand the physical principles at work inside the reactor.
-\pagebreak
+\\
 	\subsection{Underlying Physics}
 The amount of energy released from a nuclear fusion reaction is dictated by the mass of the individual atoms before the reaction, and the products after the reaction. \linebreak
 
@@ -367,7 +370,7 @@ Where $N_{pl}$ denotes the plasma's refractive index that already includes the v
 \end{equation}
 
 \begin{equation}
-	\int_{0}^{L} n_{pl} (l) dl = \frac{2 \pi c^{2} \epsilon_{0} m_{e}}{\lambda e^{2}} \Delta\phi_{pl} = \frac{\lambda n_{c}}{2 \pi} \Delta\phi_{pl}
+	\int_{0}^{L} n_{pl} (l) dl = \frac{2 \pi c^{2} \epsilon_{0} m_{e}}{\lambda e^{2}} \Delta\phi_{pl} = \frac{2 \pi}{\lambda n_{c}} \Delta\phi_{pl}
 	\label{eq:phaseintegral}
 \end{equation}
 \\
@@ -387,41 +390,41 @@ There are two causes for a change in optical path in an interferometer system; a
 Where $\phi$ is the total phase change, and $\Delta\phi_{pl}$ and $\Delta\phi_{vib}$ are the phase changes caused by the plasma and the vibrations of the machine respectively. Because a change in length causes a linear change in phase for a laser that interacts strongly with the wall, the change in phase due to the vibrations can easily be characterised by a change in length divided by the wavelength of laser sensitive to vibrations in the machine, such that:
 
 \begin{equation}
-	\Delta\phi_{vib} = \frac{2\pi}{\lambda} \Delta\lambda
+	\Delta\phi_{vib} = \frac{2\pi}{\lambda} \Delta L
 	\label{eq:vibphasediff}
 \end{equation}
 
 Combining the equation derived for a single laser passing through the plasma \ref{eq:plasmaphase}, the superposition of the vibration and plasma phase \ref{eq:superposphasediff} and the vibrational phase \ref{eq:vibphasediff} a complete equation for phase shift can be formed:
 
 \begin{equation}
-	\Delta\phi = \frac{\lambda_{s} e^{2}}{2 \pi c^{2} \epsilon_{0} m_{e}} \int_{0}^{L} n_{pl} (l) dl + \frac{2\pi}{\lambda^{r}} \Delta l
+	\Delta\phi = \frac{\lambda e^{2}}{2 \pi c^{2} \epsilon_{0} m_{e}} \int_{0}^{L} n_{pl} (l) dl + \frac{2\pi}{\lambda} \Delta l
 	\label{eq:heterophasediff}
 \end{equation}
 
 Since the relationship between the phase of the two lasers observe an inversely proportional relationship it is possible for only density information $n_{pl}$ to be extracted. This can be done by making $\Delta l$ the subject:
 
 \begin{equation}
-	\Delta l = \frac{\Delta\phi - \frac{\lambda _{s} e^{2} \int_{0}^{L} n_{pl} (l) dl }{2 \pi c^{2} \epsilon_{0} m_{e}}}{2 \pi} 
+	\Delta l = \frac{\Delta\phi\lambda - \frac{\lambda^{2} e^{2} \int_{0}^{L} n_{pl} (l) dl }{2 \pi c^{2} \epsilon_{0} m_{e}}}{2 \pi} 
 	\label{eq:deltal}
 \end{equation}
 
 and substituting in for the classical electron radius $r_{ce} = \frac{e^{2}}{2 \pi c^{2} \epsilon_{0} m_{e}}$ gives an equation of the form:
 
 \begin{equation}
-	\Delta l = \frac{\Delta\phi - \lambda r_{ce} \int_{0}^{L} n_{pl} (l) dl}{2 \pi}  
+	\Delta l = \frac{\Delta\phi\lambda - \lambda^{2} r_{ce} \int_{0}^{L} n_{pl} (l) dl}{2 \pi}  
 	\label{eq:deltalrce}
 \end{equation}
 
 By now considering two lasers of different wavelengths, $\lambda _{1}$ and $\lambda _{2}$, that follow identical beam paths and there for the same exposure to mechanical vibrations, $\Delta l$ will be equal. These two equations can then be equated:
 
 \begin{equation}
-	\frac{\Delta\phi _{1} - \lambda _{1} r_{ce} \int_{0}^{L} n_{pl} (l) dl}{2 \pi}  = \Delta l = \frac{\Delta\phi _{2} - \lambda _{2} r_{ce} \int_{0}^{L} n_{pl} (l) dl}{2 \pi}  	\label{eq:deltalequate}
+	\frac{\Delta\phi _{1}\lambda _{1} - \lambda _{1}^{2} r_{ce} \int_{0}^{L} n_{pl} (l) dl}{2 \pi}  = \Delta l = \frac{\Delta\phi _{2}\lambda_{2} - \lambda _{2}^{2} r_{ce} \int_{0}^{L} n_{pl} (l) dl}{2 \pi}  	\label{eq:deltalequate}
 \end{equation}
 
 and then solved for the line integrated plasma density, $\int_{0}^{L} n_{pl} (l) dl$, yielding:
 
 \begin{equation}
-\int_{0}^{L} n_{pl} (l) dl = \frac{1}{r_{ce}} \frac{\Delta\phi _{1} \lambda _{1} - \Delta\phi _{2} \lambda _{2}}{\lambda _{2}^{2} - \lambda _{1}^{2}}	
+\int_{0}^{L} n_{pl} (l) dl = \frac{1}{r_{ce}} \frac{\Delta\phi _{2} \lambda _{2} - \Delta\phi _{1} \lambda _{1}}{\lambda _{2}^{2} - \lambda _{1}^{2}}	
     \label{eq:LIPD}
 \end{equation}
 
@@ -460,13 +463,13 @@ The Red Pitaya (RP) \cite{Leban2014RedManual} is a micro controller that has bui
 \end{table}
 
 \section{Koheron}
-Koheron have developed a laser board which connects to the Red Pitaya that can simulate the AOM in \autoref{MAST-UInt}. It does this by using a fibre optic cable to generate a frequency modulation that results in a beat frequency \cite{KoheronAmplitudeKoheron}. Initial investigations at CCFE \cite{Hickling2017InvestigationMAST-U} have shown this method to show a strong interference pattern and the use of the RP and Koheron software is easy and accessible. There is a large amount of support and development occurring constantly so any new problems found can be fixed. In this investigation it was shown that the basic interferometer set up from Koheron is not currently sensitive enough to physical vibrations on the order of 10's of KHz. It was found that this may be due to the lack of any high order modulation of the laser due to an Acousto-Optical Modulator, as discussed by J. Brunner \cite[p. ~29]{Brunner2017}. Due to this, an AOM may be required for detection of the required beat frequency, however the benefits of this system are still apparent over the use of a $CO_{2}$ laser system. Many aspects of this system will need to be characterized before it can be considered as a functional system for the measurement of density.
+Koheron have developed a laser board which connects to the Red Pitaya that can simulate the AOM in \autoref{MAST-UInt}. It does this by using a fiber optic cable to generate a frequency modulation that results in a beat frequency \cite{KoheronAmplitudeKoheron}. Initial investigations at CCFE \cite{Hickling2017InvestigationMAST-U} have shown this method to show a strong interference pattern and the use of the RP and Koheron software is easy and accessible. There is a large amount of support and development occurring constantly so any new problems found can be fixed. In this investigation it was shown that the basic interferometer set up from Koheron is not currently sensitive enough to physical vibrations on the order of 10's of KHz. It was found that this may be due to the lack of any high order modulation of the laser due to an Acousto-Optical Modulator, as discussed by J. Brunner \cite[p. ~29]{Brunner2017}. Due to this, an AOM may be required for detection of the required beat frequency, however the benefits of this system are still apparent over the use of a $CO_{2}$ laser system. Many aspects of this system will need to be characterized before it can be considered as a functional system for the measurement of density.
 
 %----------------------------------------------------------------------------------------
 %	Aims and Objectives
 %----------------------------------------------------------------------------------------
 
-	\chapter{Aims and Objectives}
+\chapter{Aims and Objectives}
 The literature review has outlined key goals in the development and testing of a new interferometer diagnostic device. It is known that the device currently installed on MAST-U, while effective, has significant drawbacks. It has been shown by previous research \cite{Hickling2017InvestigationMAST-U} that the Red Pitaya / Koheron based system can measure the phase difference of a heterodyne system. It is still unknown if it can do this with enough precision to make it a valid candidate to the replacement of the interferometry system currently on MAST-U. In an attempt to characterise a new system for installation tests will need to be run to assure that the phase noise, which will ultimately dictate its effectiveness, will need to be on the order of approximately 10 milliRads in order to detect any useful densities. As such, this project will be to characterise and minimise any noise that is in this system. \\
 
 \begin{center}
@@ -475,8 +478,8 @@ The literature review has outlined key goals in the development and testing of a
   \gantttitlelist{1,...,12}{1} \\
   \ganttbar{Task 1}{1}{1} \\ %Lit Study
   \ganttlinkedbar{Task 2}{2}{3} \\ %Analyse Error in free space (repeat tom)
-  \ganttlinkedbar{Task 3}{4}{5} \\ %Analyse error in fibre
-  \ganttlinkedbar{Task 4}{6}{7} \\ %increase fibre length to 25m and repeat task 3
+  \ganttlinkedbar{Task 3}{4}{5} \\ %Analyse error in fiber
+  \ganttlinkedbar{Task 4}{6}{7} \\ %increase fiber length to 25m and repeat task 3
   \ganttlinkedbar{Task 5}{8}{9} \\ %Test on plasma at NTU?
   \ganttlinkedbar{Task 6}{10}{12} %Documentation for CCFE and NTU
 %  \ganttmilestone{Milestone}{7} \ganttnewline
@@ -498,9 +501,9 @@ This Gantt chart to show the tasks involved in the execution of this project. De
                 \hline
                 2 & Analyse the error sources using free space& Analyse standard deviation of different phase noise sources while adjusting the length of exposed free space. Decide if the laser will be appropriate for use in current state on MAST-U.  & 2\\
                 \hline
-                3 & Analyse the error sources using fibre optics& Compare results to free space using the interferometer system described in J. Brunner's Thesis, \autocite{Brunner2017}. Attempt to achieve a phase error of 3$mRad$ or less.& 2\\
+                3 & Analyse the error sources using fiber optics& Compare results to free space using the interferometer system described in J. Brunner's Thesis, \autocite{Brunner2017}. Attempt to achieve a phase error of 3$mRad$ or less.& 2\\
                 \hline
-                4 & Repeat Task 3 with varying length fibres (up to 25m)& Analysing the error sources using a much longer fibre to better simulate the beam paths that would be used on MAST-U. Attempt to maintain the same error. & 2\\
+                4 & Repeat Task 3 with varying length fibers (up to 25m)& Analysing the error sources using a much longer fiber to better simulate the beam paths that would be used on MAST-U. Attempt to maintain the same error. & 2\\
                 \hline
                 5 & Test on plasma device & Test the system on an actual plasma device to see the variation in density to attempt to characterise the plasma. & 2\\
                 \hline
@@ -516,50 +519,65 @@ This Gantt chart to show the tasks involved in the execution of this project. De
 %	Methodology
 %----------------------------------------------------------------------------------------
 \chapter{Experimental}
-\section{Experimental Design}
-As discussed in \cite{KoheronAmplitudeKoheron} a frequency modulation can also be induced into a system by the addition of a small fibre optic extension to an arm of a interferometer. This can be seen in \autoref{koheronfmod}.
+
+%----------------------------------
+%	Phase Noise
+\section{Phase Noise}
+Phase noise is the major component that ultimately describes the resolution to which differences in the phase can be detected. Phase noise has many different contributing factors in the system and all of the factors that contribute towards phase (discussed in 2.5) also have contributing factors to phase noise. Since the calculations that this system will eventually lead to are calculations of the density, which is measured by the phase, any error in phase measurement affects the resolution of density measurement.
 
 \begin{figure}[H]
 \includegraphics[width=0.9\textwidth, center,angle=0]{DImages/koheronfmod.JPG}
-\caption{Experiment designed by Koheron where a 1m fibre extension can be used to create a frequency modulation when interfered with the original light source.}
+\caption{Experiment designed by Koheron where a 1m fiber extension can be used to create a frequency modulation when interfered with the original light source.}
+\label{phasenoise1}
+\end{figure}
+As can be seen in \autoref{phasenoise1} phase noise just appears on a phase difference graph as white noise. This limits our ability to only see detail that results in phase changes greater than this noise. Using the equation for plasma density \autoref{eq:LIPD} we can see that the smaller phases that can be detected precisely results in smaller density changes. The relationship between phase noise and density is linear, as following the plot shown in \autoref{pn_density}.
+
+\begin{figure}[H]
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/pn-density-relationship.JPG}
+\caption{Relationship between Phase noise of the 1550nm interferometery path and the resolution of the phase by using \autoref{eq:LIPD}.}
+\label{pn_density}
+\end{figure}
+
+The phase noise in general is a very high frequency form of noise, that is caused mostly by the mixing of slight variations in frequency caused by the inherent property of laser line width.
+Since the equation that dictates the resolution of a density measurement is linear, there is no optimal phase noise to achieve, it is simply a fact of minimising the phase noise so as to achieve the best resolution. 
+
+The phase noise can be characterised by the standard deviation of the measured phase. By taking this standard deviation over a range of bandwidths certain frequencies can be isolated from the system. This will, by default reduce the calculated phase noise, but will not affect the density resolution as that is a holistic calculation that can be characterised by the phase noise, not directly calculated.//
+
+Noise that can be detected by a phase shift comes in two distinct flavours; low frequency or "one over f" noise, and high frequency or "white noise". These two different types of noise can be distinguished on an FFT plot of the dataset which shows a distinct change in gradient. The point at where this change in gradient occurs is important to give an idea of the performance of the system.
+
+\section{Experimental Design}
+
+%-------------- Summer Work ------------------------------
+
+As discussed in \cite{KoheronAmplitudeKoheron} a frequency modulation can also be induced into a system by the addition of a small fiber optic extension to an arm of a interferometer. This can be seen in \autoref{koheronfmod}.
+
+\begin{figure}[H]
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/koheronfmod.JPG}
+\caption{Experiment designed by Koheron where a 1m fiber extension can be used to create a frequency modulation when interfered with the original light source.}
 \label{koheronfmod}
 \end{figure}
 
-This system is attractive as it removes the requirement of needing an AOM to modulate the frequency of the scene interferometer laser. Unfortunately, preliminary testing has shown that the phase noise of this system is too high to detect a 10KHz vibration produced by a speaker \cite{Hickling2017InvestigationMAST-U}. In order to improve the phase noise an AOM has been employed into the system to measure the effectiveness of the 1550nm laser provided by Koheron. 
-
-\begin{figure}[H] 
-\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/intconfig1.JPG}
-\caption{Experimental set up designed to test the noise present in the phase using only fibre optics.}
-\label{intconfig1}
-\end{figure}
-
-\begin{figure}[H] 
-\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/intconfig2.JPG}
-\caption{Experimental set up designed to test the noise present in the phase while employing a free space portion of the path which allows the measurement of some medium with refractive index as well as physical vibrations.}
-\label{intconfig2}
-\end{figure}
-
-With the introduction of the AOM \cite{Sell1550MODULATORb} as seen in \autoref{intconfig1} half of the signal of the laser is modulated by a clean 40MHz sine wave which is produced by a signal generator. It is necessary for the stability of the modulation to be high as the detected wave has a strong dependence on a stable beat frequency defined by the mixing of two different frequency signals.
+This system is attractive as it removes the requirement of needing an AOM to modulate the frequency of the scene interferometer laser. Unfortunately, preliminary testing has shown that the phase noise of this system is too high to detect a 10KHz vibration produced by a speaker \cite{Hickling2017InvestigationMAST-U}.
 
 \subsection{Optical Components}
 
-\subsubsection{Laser}
+\subsubsection{Koheron Laser}
 The 1550nm laser \cite{KoheronLaserV1} is provided by Koheron and is designed to have a maximum output of 3mW. This results in the laser being listed as class 1 and this confirms its safe use with a minimal amount of safety equipment or restrictions. The laser does has a line width of 6MHz which may prove to be too large for this application, as such the scope of this chapter will be to discuss the suitability of this component.
 
-\subsubsection{Fibre Optic Splitters}
-Used to split an incoming electromagnetic wave \cite{1x2Koheron} where approximately 50$\%$ of the light passes down each of the two fibres. This is imperative for the system as it makes the laser common among all parts of the beam path. This means that if the laser is exposed to any kind of internal fluctuation it is common and therefore should not significantly affect the results.
+\subsubsection{fiber Optic Splitters}
+Used to split an incoming electromagnetic wave \cite{1x2Koheron} where approximately 50$\%$ of the light passes down each of the two fibers. This is imperative for the system as it makes the laser common among all parts of the beam path. This means that if the laser is exposed to any kind of internal fluctuation it is common and therefore should not significantly affect the results.
 
 \subsubsection{Circulator}
-The circulator \cite{FiberKoheron} is sources by Koheron and it's function is to allow exit and re-insertion into the fibre system from the same point within the system. It manages to achieve this with near 100$\%$ efficiency. It does this by a module which is sensitive to the direction of the incident light, such that light can travel from port 1 to port 2 and from port 2 to port 3, but not from 1 to 3. This allows for the sending of the light out into free space and then return it back into the fibre system.
+The circulator \cite{FiberKoheron} is sources by Koheron and it's function is to allow exit and re-insertion into the fiber system from the same point within the system. It manages to achieve this with near 100$\%$ efficiency. It does this by a module which is sensitive to the direction of the incident light, such that light can travel from port 1 to port 2 and from port 2 to port 3, but not from 1 to 3. This allows for the sending of the light out into free space and then return it back into the fiber system.
 
 \subsubsection{Collimator}
-The appropriate collimator \cite{Air-SpacedSMA} for 1550nm is employed so collimate the light once it exits the fibre. This is important as if the light is uncollimated the losses due to divergence across free space become significant. The selected collimator has a divergence angle of 0.016 degrees. Across 2m this will result in a 3.2cm divergence of spot radius, which will be very significant. In larger free space systems a correction lens will need to be applied.
+The appropriate collimator \cite{Air-SpacedSMA} for 1550nm is employed so collimate the light once it exits the fiber. This is important as if the light is uncollimated the losses due to divergence across free space become significant. The selected collimator has a divergence angle of 0.016 degrees. Across 2m this will result in a 3.2cm divergence of spot radius, which will be very significant. In larger free space systems a correction lens will need to be applied.
 
 \subsubsection{Retroreflector}
 A standard retroreflector (sometimes called a "Corner Cube") is employed to reduce the difficulty of alignment in free space. It functions by having 3 highly reflective surfaces that all meet perpendicularly to form a vertex, this resembles in internal corner of a cube. All light that strikes any one of these reflective surfaces will be sent back on a beam path that is parallel to the incident beam.
 
 \subsubsection{Acousto-Optical Modulator}
-The AOM \cite{Sell1550MODULATORb} chosen for this system is a  T-M040-0.5C8J-3-F2S designed to modulate the signal of the input 1550nm signal by 40MHz. It has a low insertion loss of 2.5dB and upshifts the frequency of the incoming light by 40MHz. This results in a wavelength change of $~0.32pm$.
+The AOM \cite{Sell1550MODULATOR} chosen for this system is a  T-M040-0.5C8J-3-F2S designed to modulate the signal of the input 1550nm signal by 40MHz. It has a low insertion loss of 2.5dB and up-shifts the frequency of the incoming light by 40MHz. This results in a wavelength change of $~0.32pm$.
 
 \subsubsection{PD100 Photo detector}
 The PD100 designed by Koheron \cite{KoheronPD100Photodetector} is a low noise photodetector that has a maximum input of 1.5mW. This signal can then be output electronically by an SMA connection for data processing.
@@ -570,23 +588,105 @@ The data collection is processed by a SPEC board and a SP605 as designed by Jako
 \subsubsection{AOM Driver}
 The AOM is driven by the use of a Red Pitaya \cite{Leban2014RedManual} which can generate a 40MHz signal for the use of the modulation. It does this through the use of 1 of its 2 Digital to Analogue converters which can output at 125 MHz. This provides the signal to the AOM and also to the reference.
 
+\subsubsection{Laser Diode}
+To compare and contrast the strengths and weaknesses of the Koheron system it will have to be compared to another laser in an identical set up. The laser chosen is an SFL1550S - 1550 nm with a butterfly connection \cite{ThorlabsFC/APC}. The benefit of this laser over the Koheron is that this only has a 50KHz (Max 100KHz) line width.
 
-%----------------------------------
-%	Phase Noise
-\section{Phase Noise}
-Phase noise is the major component that ultimately describes the resolution of the phase. Phase noise has many different contributing factors in the system and all of the factors that contribute towards phase (discussed in 2.5) also have contributing factors to phase noise. Since the calculations that this system will eventually lead to are calculations of the density, which is measured by the phase, any error in phase measurement affects the resolution of density measurement. The phase noise can be characterised by the standard deviation of the measured phase. By taking this standard deviation over a range of bandwidths certain frequencies can be isolated from the system. This will, by default reduce the calculated phase noise, but will not affect the density resolution as that is a holistic calculation that can be characterised by the phase noise, not directly calculated.
+\subsubsection{Laser Driver}
+This laser, being a butterfly connection has to be driven by some current control unit, to which the Thorlabs compact laser diode driver was chosen \cite{CompactPackages}. This driver was chosen due to its precise current control and the benefit of including temperature control to a precision of 0.005 Kelvin. As temperature increase so does the line width of the laser, which can result in some negative effects on the phase.
 
-Noise that can be detected by a phase shift comes in two distinct flavours; low frequency or "one over f" noise, and high frequency or "white noise". These two different types of noise can be distinguished on an FFT plot of the dataset which shows a distinct change in gradient. The point at where this change in gradient occurs is important to give an idea of the performance of the system.
+%-------------- Addition of AOM ------------------------------
+\subsection{Optical Configurations}
+In order to improve the phase noise an AOM has been employed into the system to measure the effectiveness of the 1550nm laser provided by Koheron. 
+
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/intconfig1.JPG}
+\caption{Experimental set up designed to test the noise present in the phase using only fiber optics.}
+\label{fig:intconfig1}
+\end{figure}
+
+
+With the introduction of the AOM \cite{Sell1550MODULATOR} as seen in \autoref{fig:intconfig1} half of the signal of the laser is modulated by a clean 40MHz sine wave which is produced by a signal generator. It is necessary for the stability of the modulation to be high as the detected wave has a strong dependence on a stable beat frequency defined by the mixing of two different frequency signals.
+
+%-------------- Free Space Setup ------------------------------
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/intconfig2.JPG}
+\caption{Experimental set up designed to test the noise present in the phase while employing a free space portion of the path which allows the measurement of some medium with refractive index as well as physical vibrations.}
+\label{fig:intconfig2}
+\end{figure}
+
+%-------------- Fiber Reference ------------------------------
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/intconfig3.JPG}
+\caption{Interferometer system with the laser as a common signal between both the scene and the reference arms. This causes any fluctuations in the laser to be seen on both detectors and then cancelled out in the difference calculation.}
+\label{fig:intconfig3}
+\end{figure}
+%-------------- Ref and Scene Drift ------------------------------
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/intconfig4.JPG}
+\caption{Combines the scene interferometer with the AOM driver signal and also the reference interferometer with the AOM driver signal. This allows the viewing of the individual movement of each set in an attempt to try and characterise the slow drift.}
+\label{fig:intconfig4}
+\end{figure}
+
+
+
 %----------------------------------------------------------------------------------------
 %	Red Pitaya
 %----------------------------------------------------------------------------------------
 
-\chapter{Red Pitaya}
+\chapter{Use of Koheron Laser}
+\section{Overview and Operation}
+The Koheron laser is a cheap and effective laser diode which is capable of producing a 1550nm wavelength with a 3MHz linewidth. The laser power is inherently low (Maximum 3mW) which makes it a safe system to operate with no restrictions. The laser has been tested with all 3 set ups shown above (\autoref{fig:intconfig2}, \autoref{fig:intconfig3} and \autoref{fig:intconfig4}) including the original set up to test the modulation of the fiber \autoref{fig:intconfig1}. It is to be noted that the laser is not temperature cooled and appears to show a period of multi-mode operation at an input current of 25mA.
 
+\begin{figure}[H] 
+\includegraphics[width=0.7\textwidth, center,angle=0]{DImages/FFT_for_shot_8_Date_20180323.png}
+\caption{Three distinct gradients can be seen as indicated by the red lines. This shows that there are multiple frequency responses at this particular setting for the laser. } 
+\label{fig:25mAmultimode}
+\end{figure}
+
+The operation of the laser is very simplistic as it runs entirely within the Koheron web client. The web client allows the laser current to be chosen to a precision of $\pm 0.005A$ and also allows the input of modulation into the system (though this feature will not be used for the purposes of these tests).
 %----------------------------------------------------------------------------------------
 %	Results
 %----------------------------------------------------------------------------------------
 \section{Results}
+
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/PD-shot-5-date-20180423.JPG}
+\caption{Phase difference of Shot taken on as analysed by Jakob Brunner's evaluation code.}
+\label{fig:pdshot5d20180423}
+\end{figure}
+\autoref{fig:pdshot5d20180423} shows a standard phase difference for a shot taken by the Koheron laser. The phase difference shows a significant amount of phase drift as it moves from ~-2.6 Radians down to -3.1 Radians with little to no change in amplitude. In a plasma exposed system this would represent a density change within the fiber.
+
+Using the equation for the refractive index of air with varying pressure and temperature:
+
+\begin{equation}
+n(P, T) = (1 + 0.000293 \times \frac{P}{P_{0}} \frac{T_{0}}{T})\times 0.4
+\label{eq:refractive-temp}
+\end{equation}
+
+Where $\frac{P}{P_0} = 1$ therefore assuming air pressure change is negligible. $T_0 = 295K$ as standard room temperature is 22 degrees. T is the temperature change that contributes to the change in refractive index. And the 0.4 Using a temperature change of 0.5 degrees \cite{Melikov1997AirRooms} this results in a path difference of $\pm 198\times 10^{-9}m$ which would result in a phase change of $\pm 0.8 Radians$. This number is within the scope of the drift we expect to see, however this assumes that the whole free space portion changes by this amount. Combining this with the fact that the pressure may also change, this is a cause for concern in our final measurement.
+
+Equally if we consider the fiber optics as a contributing component to this shift using the refractive index of 1550nm fiber $n_{0} - 1.4681$ the same temperature change will result in a change of phase of $\pm 20000 Radians$. From this simple calculation we see that the shift due to the free space is negligible compared the the shift in fiber. From this we can say that the temperature shift in fiber is of the order of $\pm 10^{-5} Degrees Kelvin$ to produce a phase shift of 0.4 Radians. It is worth noting that this equation also should have a function of time to it, as we see this shift over the course of a 1 second shot. If the temperature response is sufficiently slow it will be damped greatly on the scale of the shot length, this is likely why we only see a 0.4 Radian drift rather than 20000 Radians. The ratio between these refractive indices already shows that the sensitivity of temperature in fiber is on the order of 1600x greater.
+
+\begin{figure}[H] 
+\includegraphics[width=0.7\textwidth, center,angle=0]{DImages/Phase_Difference_shot_2_Date_20180323-1.png}
+\caption{Phase difference of shot 2 taken on 2018-03-23. Drift is clearly visible on a scale of about 1 Radian.}
+\label{fig:PD-shot-2-20180323}
+\end{figure}
+
+\begin{figure}[H] 
+\includegraphics[width=0.7\textwidth, center,angle=0]{DImages/Phase_Noise_for_Scene_shot_2_with_bandwidth___1000_Date_20180323.png}
+\caption{}
+\label{fig:PN-shot-2-20180323-bw-1000}
+\end{figure}
+
+\begin{figure}[H] 
+\includegraphics[width=0.7\textwidth, center,angle=0]{DImages/Phase_Noise_for_Scene_shot_2_with_bandwidth___40000_Date_20180323.png}
+\caption{}
+\label{fig:PN-shot-2-20180323-bw-40000}
+\end{figure}
+
+
+
 
 %----------------------------------------------------------------------------------------
 %	Analysis
@@ -626,6 +726,80 @@ Noise that can be detected by a phase shift comes in two distinct flavours; low 
 \chapter{Conclusion}
 
 %----------------------------------------------------------------------------------------
+%	Discussion
+%----------------------------------------------------------------------------------------
+\pagebreak
+\section{Figures to Include}
+
+\begin{figure}[H] 
+\begin{subfigure}{.5\textwidth}
+\centering\captionsetup{width=.9\linewidth}
+\includegraphics[width=\textwidth, angle=0]{DImages/Phase_Noise_for_Shots_1and_2.png}
+\caption{New Laser consists of shots 1-20 and Koheron consists of shots 21-40.}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+\centering\captionsetup{width=.9\linewidth}
+\includegraphics[width=\textwidth, angle=0]{DImages/Phase_Noise_for_Shots_3and_4.png}
+\caption{New Laser consists of shots 61-80 and Koheron consists of shots 41-60.}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+\centering\captionsetup{width=.9\linewidth}
+\includegraphics[width=\textwidth,angle=0]{DImages/Phase_Noise_for_Shots_5and_6.png}
+\caption{New Laser consists of shots 81-100 and Koheron consists of shots 106-125.}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+\centering\captionsetup{width=.9\linewidth}
+\includegraphics[width=\textwidth, angle=0]{DImages/Phase_Noise_for_Shots_7and_8.png}
+\caption{New Laser consists of shots 146-165 and Koheron consists of shots 126-145.}
+\end{subfigure}
+\caption{Collection of shots all taken on the same day (23/04/2018) within an hour showing the variation in the phase noise between identical conditions with the only variable factor being the laser. In all plots blue data represents the use of the New laser and red data represents the use of the Koheron laser. (a) shows shots with no insulation. (b) shows shots with insulation present. (c) shows shots with copper tape adding thermal mass but no insulation. (d) shows shot with copper tape and insulation.}
+\label{fig:4-phase-noise}
+\end{figure}
+
+\begin{figure}[H] 
+\begin{subfigure}{.5\textwidth}
+\centering\captionsetup{width=.9\linewidth}
+\includegraphics[width=\textwidth, angle=0]{DImages/Max_-_Min_Drift_for_Shots_1and_2.png}
+\caption{New Laser consists of shots 1-20 and Koheron consists of shots 21-40.}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+\centering\captionsetup{width=.9\linewidth}
+\includegraphics[width=\textwidth, angle=0]{DImages/Max_-_Min_Drift_for_Shots_3and_4.png}
+\caption{New Laser consists of shots 61-80 and Koheron consists of shots 41-60.}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+\centering\captionsetup{width=.9\linewidth}
+\includegraphics[width=\textwidth,angle=0]{DImages/Max_-_Min_Drift_for_Shots_5and_6.png}
+\caption{New Laser consists of shots 81-100 and Koheron consists of shots 106-125.}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+\centering\captionsetup{width=.9\linewidth}
+\includegraphics[width=\textwidth, angle=0]{DImages/Max_-_Min_Drift_for_Shots_7and_8.png}
+\caption{New Laser consists of shots 146-165 and Koheron consists of shots 126-145.}
+\end{subfigure}
+\caption{Collection of shots all taken on the same day (23/04/2018) within an hour showing the variation in the phase drift between identical conditions with the only variable factor being the laser. In all plots blue data represents the use of the New laser and red data represents the use of the Koheron laser. (a) shows shots with no insulation. (b) shows shots with insulation present. (c) shows shots with copper tape adding thermal mass but no insulation. (d) shows shot with copper tape and insulation.}
+\label{fig:4-max-min-drifts}
+\end{figure}
+
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/PD_-_shot_20_-_20180416_-_zoomed_plot_-_100Hz_speaker.png}
+\caption{While taking a shot when a vibrating speaker was outputting 100Hz a zoomed in small cross section in the x-axis shows that this signal is actually an oscillation of approximately 100Hz.}
+\label{fig:PD-shot20-20180416-zoomedplot}
+\end{figure}
+
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/FFT_for_shot_20_Date_20180416.png}
+\caption{FFT of the shot seen in \autoref{fig:PD-shot20-20180416-zoomedplot} reveals that while there is a frequency spike at 100Hz this also has a linewidth and is surrounded by a few other frequencies, likely harmonics to the 100Hz. The linewidth is visible as phase noise.}
+\label{fig:FFT-shot20-20180416-zoomed-10Hz-1000Hz}
+\end{figure}
+
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/Shot_14_20180417_Zoom_Plot.png}
+\caption{}
+\label{fig:PD-shot-14-20180416-zoomedplot}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
 %	Bibliography
 %----------------------------------------------------------------------------------------
 \pagebreak
@@ -643,6 +817,10 @@ Noise that can be detected by a phase shift comes in two distinct flavours; low 
 \begin{appendices}
 
 %\includepdf[pages={ - }]{ChristopherHicklingSummerProject.pdf}
+\section{Python Analysis Code}
+	%\lstinputlisting[language=Python]{Code/chickling_additions_2.py}
+	%\label{chickling_additions}
+
 \end{appendices}
 
 \end{document}
