@@ -128,8 +128,8 @@
 %	Abstract
 %----------------------------------------------------------------------------------------
 
-%\chapter{Abstract}
-%The aim of this project is to investigate and test the effectiveness of a new interferometer system for diagnostic purposes. This system is based on the use of a 1550nm laser diode \cite{KoheronLaserV1} interferometer system designed to measure the electron density of plasma in MAST-U (Mega Amp Spherical Tokamak - Upgrade).
+\chapter{Abstract}
+The aim of this project is to investigate and test the effectiveness of a new interferometer system for diagnostic purposes. This system is based on the use of a 1550nm laser diode \cite{KoheronLaserV1} interferometer system designed to measure the electron density of plasma in MAST-U (Mega Amp Spherical Tokamak - Upgrade). Using the desired configuration of two Mach-Zehnder interferometers comprised mostly of fiber optics with a free space portion for the use of measuring density changes, a phase noise of $3 \pm 1$ mRad has been achieved, which is comparable to the phase noise on the current CO$_{2}$ system which shows a phase noise of 2 mRad and corresponds to a density change of the order of $1\times 10^{18} m^{2}$ which is suitable for the detection of instabilities in MAST-U. Unfortunately the fiber optics have brought a large temperature dependence to the system which has added a significant error to density calculations that would be comparable to a phase noise of up to 1 Radian. While insulation causes an improvement in this value the system will never be able to be fully temperature controlled to the precision required to make phase drifts due to temperature become less significant than phase noise, hence new and innovative solutions will need to be applied which is beyond the scope of this dissertation.
 
 %----------------------------------------------------------------------------------------
 %	Introduction
@@ -434,9 +434,7 @@ As a result of equation \ref{eq:LIPD}, the line integrated plasma density can be
 FPGA's are a simple and effective way to collect and analyse data. They have numerous advantages over standard processing devices as they are designed to compute a single pre-programmed task, as unlike a Central Processing Unit (CPU) which is designed to use logic to solve a specific task. The use of an FPGA is becoming more common in fusion applications as the need to perform real time filtering \cite{Naylor2010AnMAST} and processing on data is becoming a greater concern for plasma control systems to allow the safe operation of reactors. Many different forms of FPGA's have been used in the fusion industry for real time application.
 	\subsection{Red Pitaya}
     
-The Red Pitaya (RP) \cite{Leban2014RedManual} is a micro controller that has built in FPGA capabilities. This is further simplified by Koheron by designing software for the RP to run, which includes an oscilloscope and spectrum analysis software as well as control of the laser's modulation frequency and current, through a simple interface.
-
-%The Red Pitaya (RP) \cite{Leban2014RedManual} is a open source micro controller with a built in Field Programmable Gate Array (FPGA) with a very user friendly user interface. It operates two inputs and two outputs at 125MS/s. FPGA's are notorious for being difficult to program as they are intrinsically complicated. The stand out function of a FPGA is the way it processes information. It can perform many tasks in parallel pipelined processing i.e. performing the same operation on many data sets. The number of parallel pipelines that can be implemented depends entirely on the hardware limitations of the FPGA. This often means that the limiting factor of the speed at which a RP can process data is the speed at which you can transmit data to it. This gives FPGA's a large advantage over conventional computers when it comes to real time data applications.
+The Red Pitaya (RP) \cite{Leban2014RedManual} is a micro controller that has built in FPGA capabilities. FPGA's are notorious for being difficult to program as they are intrinsically complicated. The stand out function of a FPGA is the way it processes information. It can perform many tasks in parallel pipelined processing i.e. performing the same operation on many data sets. The number of parallel pipelines that can be implemented depends entirely on the hardware limitations of the FPGA. This often means that the limiting factor of the speed at which a RP can process data is the speed at which you can transmit data to it. This gives FPGA's a large advantage over conventional computers when it comes to real time data applications. This is simplified by Koheron by designing software for the RP to run, which includes an oscilloscope and spectrum analysis software as well as control of the laser's modulation frequency and current, through a simple interface.
 
 \begin{figure}[H]
 \includegraphics[width=0.9\textwidth, center,angle=0]{Images/RP.JPG}
@@ -462,7 +460,7 @@ The Red Pitaya (RP) \cite{Leban2014RedManual} is a micro controller that has bui
     \label{RPspec}
 \end{table}
 
-\section{Koheron}
+\section{Koheron} 
 Koheron have developed a laser board which connects to the Red Pitaya that can simulate the AOM in \autoref{MAST-UInt}. It does this by using a fiber optic cable to generate a frequency modulation that results in a beat frequency \cite{KoheronAmplitudeKoheron}. Initial investigations at CCFE \cite{Hickling2017InvestigationMAST-U} have shown this method to show a strong interference pattern and the use of the RP and Koheron software is easy and accessible. There is a large amount of support and development occurring constantly so any new problems found can be fixed. In this investigation it was shown that the basic interferometer set up from Koheron is not currently sensitive enough to physical vibrations on the order of 10's of KHz. It was found that this may be due to the lack of any high order modulation of the laser due to an Acousto-Optical Modulator, as discussed by J. Brunner \cite[p. ~29]{Brunner2017}. Due to this, an AOM may be required for detection of the required beat frequency, however the benefits of this system are still apparent over the use of a $CO_{2}$ laser system. Many aspects of this system will need to be characterized before it can be considered as a functional system for the measurement of density.
 
 %----------------------------------------------------------------------------------------
@@ -526,11 +524,11 @@ This Gantt chart to show the tasks involved in the execution of this project. De
 Phase noise is the major component that ultimately describes the resolution to which differences in the phase can be detected. Phase noise has many different contributing factors in the system and all of the factors that contribute towards phase (discussed in 2.5) also have contributing factors to phase noise. Since the calculations that this system will eventually lead to are calculations of the density, which is measured by the phase, any error in phase measurement affects the resolution of density measurement.
 
 \begin{figure}[H]
-\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/koheronfmod.JPG}
-\caption{Experiment designed by Koheron where a 1m fiber extension can be used to create a frequency modulation when interfered with the original light source.}
-\label{phasenoise1}
+\includegraphics[width=0.8\textwidth, center,angle=0]{DImages/Phase_Noise_for_Scene_shot_13_with_bandwidth___1000_Date_20180323.png}
+\caption{Phase noise for shot 13 taken on 23/03/2018 with a bin width of 1000 therefore corresponding to a frequency bandwidth of 20KHz. It can be seen that this has a large spread of data across several mRad and many peaks at varying heights.}
+\label{fig:phasenoise1}
 \end{figure}
-As can be seen in \autoref{phasenoise1} phase noise just appears on a phase difference graph as white noise. This limits our ability to only see detail that results in phase changes greater than this noise. Using the equation for plasma density \autoref{eq:LIPD} we can see that the smaller phases that can be detected precisely results in smaller density changes. The relationship between phase noise and density is linear, as following the plot shown in \autoref{pn_density}.
+As can be seen in \autoref{fig:phasenoise1} phase noise just appears on a phase difference graph as white noise. This limits our ability to only see detail that results in phase changes greater than this noise. Using the equation for plasma density \autoref{eq:LIPD} we can see that the smaller phases that can be detected precisely results in smaller density changes. The relationship between phase noise and density is linear, as following the plot shown in \autoref{pn_density}.
 
 \begin{figure}[H]
 \includegraphics[width=0.9\textwidth, center,angle=0]{DImages/pn-density-relationship.JPG}
@@ -541,7 +539,7 @@ As can be seen in \autoref{phasenoise1} phase noise just appears on a phase diff
 The phase noise in general is a very high frequency form of noise, that is caused mostly by the mixing of slight variations in frequency caused by the inherent property of laser line width.
 Since the equation that dictates the resolution of a density measurement is linear, there is no optimal phase noise to achieve, it is simply a fact of minimising the phase noise so as to achieve the best resolution. 
 
-The phase noise can be characterised by the standard deviation of the measured phase. By taking this standard deviation over a range of bandwidths certain frequencies can be isolated from the system. This will, by default reduce the calculated phase noise, but will not affect the density resolution as that is a holistic calculation that can be characterised by the phase noise, not directly calculated.//
+The phase noise can be characterised by the standard deviation of the measured phase. By taking this standard deviation over a range of bandwidths certain frequencies can be isolated from the system. This will, by default reduce the calculated phase noise, but will not affect the density resolution as that is a holistic calculation that can be characterised by the phase noise, not directly calculated. If the dataset of the phase difference exists with little to no variation from in the Y-Axis except for that induced by vibrations then a simple standard deviation calculation would give a very good idea of the limitations of the resolution of the phase. As is discussed in later chapters there is an inherent drift seen in nearly all shots taken which would result in the standard deviation including this drift, which isn't an accurate representation of the phase. As a result it is much better to bin the data and perform a standard deviation of each bin to minimise the effect of this drifting response. The average of the standard deviation of each of these bins will more accurately reveal the resolution of the phase and therefore what would be expected in the resolution of the density.//
 
 Noise that can be detected by a phase shift comes in two distinct flavours; low frequency or "one over f" noise, and high frequency or "white noise". These two different types of noise can be distinguished on an FFT plot of the dataset which shows a distinct change in gradient. The point at where this change in gradient occurs is important to give an idea of the performance of the system.
 
@@ -596,7 +594,7 @@ This laser, being a butterfly connection has to be driven by some current contro
 
 %-------------- Addition of AOM ------------------------------
 \subsection{Optical Configurations}
-In order to improve the phase noise an AOM has been employed into the system to measure the effectiveness of the 1550nm laser provided by Koheron. 
+In order to improve the phase noise an AOM has been employed into the system to measure the effectiveness of the 1550nm laser provided by Koheron. With the introduction of the AOM \cite{Sell1550MODULATOR} as seen in \autoref{fig:intconfig1} half of the signal of the laser is modulated by a clean 40MHz sine wave which is produced by a signal generator. It is necessary for the stability of the modulation to be high as the detected wave has a strong dependence on a stable beat frequency defined by the mixing of two different frequency signals.
 
 \begin{figure}[H] 
 \includegraphics[width=0.9\textwidth, center,angle=0]{DImages/intconfig1.JPG}
@@ -604,8 +602,8 @@ In order to improve the phase noise an AOM has been employed into the system to 
 \label{fig:intconfig1}
 \end{figure}
 
+While the fiber only set-up gives a good representation of the expected phase noise of the system it does not mimic what we want the final system to look like. For this a free-space portion will have to be included in one of the arms of the interferometer as shown in \autoref{fig:intconfig2}. This will cause the system to become sensitive to mechanical vibrations as described by \autoref{eq:vibphasediff}.
 
-With the introduction of the AOM \cite{Sell1550MODULATOR} as seen in \autoref{fig:intconfig1} half of the signal of the laser is modulated by a clean 40MHz sine wave which is produced by a signal generator. It is necessary for the stability of the modulation to be high as the detected wave has a strong dependence on a stable beat frequency defined by the mixing of two different frequency signals.
 
 %-------------- Free Space Setup ------------------------------
 \begin{figure}[H] 
@@ -614,12 +612,15 @@ With the introduction of the AOM \cite{Sell1550MODULATOR} as seen in \autoref{fi
 \label{fig:intconfig2}
 \end{figure}
 
+As will be explained in later sections a drift of phase difference can be seen, as such it was important to instead of comparing the moving phase of the interferometer to the stationary phase of the AOM driver, to instead compare it to the moving phase of a reference interferometer as shown in \autoref{fig:intconfig3}. The idea is that any drift caused by the laser or by temperature fluctuations within the system will be common in both interferometers, and so these will cancel out when the phase difference calculation is performed. 
 %-------------- Fiber Reference ------------------------------
 \begin{figure}[H] 
 \includegraphics[width=0.9\textwidth, center,angle=0]{DImages/intconfig3.JPG}
 \caption{Interferometer system with the laser as a common signal between both the scene and the reference arms. This causes any fluctuations in the laser to be seen on both detectors and then cancelled out in the difference calculation.}
 \label{fig:intconfig3}
 \end{figure}
+
+The final configuration that has been explored is once which compares the signals of each interferometer to the AOM driver signal as shown in \autoref{fig:intconfig4}. This is designed to attempt to show if there is a dominant cause of phase drift in one interferometer, and exactly to what extent these two interferometer arms actually have correlation.
 %-------------- Ref and Scene Drift ------------------------------
 \begin{figure}[H] 
 \includegraphics[width=0.9\textwidth, center,angle=0]{DImages/intconfig4.JPG}
@@ -635,27 +636,219 @@ With the introduction of the AOM \cite{Sell1550MODULATOR} as seen in \autoref{fi
 
 \chapter{Use of Koheron Laser}
 \section{Overview and Operation}
-The Koheron laser is a cheap and effective laser diode which is capable of producing a 1550nm wavelength with a 3MHz linewidth. The laser power is inherently low (Maximum 3mW) which makes it a safe system to operate with no restrictions. The laser has been tested with all 3 set ups shown above (\autoref{fig:intconfig2}, \autoref{fig:intconfig3} and \autoref{fig:intconfig4}) including the original set up to test the modulation of the fiber \autoref{fig:intconfig1}. It is to be noted that the laser is not temperature cooled and appears to show a period of multi-mode operation at an input current of 25mA.
+The Koheron laser is a cheap and effective laser diode which is capable of producing a 1550nm wavelength with a 3MHz linewidth. The laser power is inherently low (Maximum 3mW) which makes it a safe system to operate with no restrictions. The laser has been tested with all 3 set ups shown above (\autoref{fig:intconfig2}, \autoref{fig:intconfig3} and \autoref{fig:intconfig4}) including the original set up to test the modulation of the fiber \autoref{fig:intconfig1}. It is to be noted that the laser is not temperature cooled and appears to show a period of multi-mode operation at an input current of 25mA which can be seen in the fft as shown in \autoref{fig:singlemode_multimode}. By running at a different current, e.g. 30mA this aditional frequency contribution is no longer present.
 
-\begin{figure}[H] 
-\includegraphics[width=0.7\textwidth, center,angle=0]{DImages/FFT_for_shot_8_Date_20180323.png}
-\caption{Three distinct gradients can be seen as indicated by the red lines. This shows that there are multiple frequency responses at this particular setting for the laser. } 
-\label{fig:25mAmultimode}
+\begin{figure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.90\linewidth}
+    \includegraphics[width=\textwidth,angle=0]{DImages/FFT_for_shot_8_Date_20180323.png}
+    \caption{Shot 8 taken on 23/03/18 at 25mA shows three distinct gradients can be seen as indicated by the red lines. This shows that there are multiple frequency responses at this particular setting for the laser.}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.95\linewidth}
+    \includegraphics[width=\textwidth, angle=0]{DImages/FFT_for_shot_6_Date_20180412.png}
+    \caption{Shot 6 taken on 12/04/18 at 30mA shows only two distinct gradients. This is in line with what we expect to see from single mode operation as there is contribution only from a single set of noise.}
+  \end{subfigure}
+\caption{FFT's from two different shots running at two different currents both using the Koheron laser board. (a) shows the laser being operated by 25mA showing multimode operation, (b) shows the laser being operated at 30mA showing single mode operation. }
+\label{fig:singlemode_multimode}
 \end{figure}
 
-The operation of the laser is very simplistic as it runs entirely within the Koheron web client. The web client allows the laser current to be chosen to a precision of $\pm 0.005A$ and also allows the input of modulation into the system (though this feature will not be used for the purposes of these tests).
+
+The operation of the laser is very simplistic as it runs entirely within the Koheron web client. The web client allows the laser current to be chosen to a precision of $\pm 0.005A$ and also allows the input of modulation into the system (though this feature will not be used for the purposes of these tests). As a result to avoid multi mode operation a current of 30mA for all tests is chosen, this is to also maximise signal for detection purposes.
 %----------------------------------------------------------------------------------------
 %	Results
 %----------------------------------------------------------------------------------------
-\section{Results}
+\section{Results} \label{Section:RP_Drift}
 
-\begin{figure}[H] 
+\begin{figure}[H]
+\autoref{fig:pdshot5d20180423} shows a standard phase difference for a shot taken by the Koheron laser. The phase difference shows a significant amount of phase drift as it moves from ~-2.6 Radians down to -3.1 Radians with little to no change in amplitude. In a plasma exposed system this would represent a density change within the fiber.
+
 \includegraphics[width=0.9\textwidth, center,angle=0]{DImages/PD-shot-5-date-20180423.JPG}
 \caption{Phase difference of Shot taken on as analysed by Jakob Brunner's evaluation code.}
 \label{fig:pdshot5d20180423}
 \end{figure}
-\autoref{fig:pdshot5d20180423} shows a standard phase difference for a shot taken by the Koheron laser. The phase difference shows a significant amount of phase drift as it moves from ~-2.6 Radians down to -3.1 Radians with little to no change in amplitude. In a plasma exposed system this would represent a density change within the fiber.
 
+This can be clearly seen on other shots and the amount that it drifts by changes drastically. As can be seen in \autoref{fig:PD-shot-2-20180323} this shot actually drifts in phase difference by an entire radian. This is the upper limit of the amount of drift that is commonly seen from shot to shot. From time to time turning points (seen in \autoref{fig:PD-shot-2-20180411} in which drifts can be seen which implies that this is some kind of fluctuation rather that just some constant change in a single direction. It has changing gradients and amplitudes so it is impossible to predict from shot to shot.
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/Phase_Difference_shot_2_Date_20180323-1.png}
+\caption{Phase difference of shot 2 taken on 2018-03-23. Drift is clearly visible on a scale of about 1 Radian.}
+\label{fig:PD-shot-2-20180323}
+\end{figure}
+
+As can be seen in \autoref{fig:PD-shot-2-20180411} turning points are frequent. By placing a warm object near one of the interferometer arms a phase shift can be seen. As seen on an oscilloscope a increase in temperature causes a forward shift and a decrease causes a reverse shift. It is possible that these drifts are caused by changes in temperature in the fibers which would result in random frequencies in the range of 0.2-1.2Hz \cite{Melikov1997AirRooms}.
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/Phase_Difference_shot_2_Date_20180411.png}
+\caption{Shot 2 taken on 11-04-2018 on the Koheron laser shows that a drift of 0.4 Rad is present. This also has 2 distinctive turning points in phase difference.}
+\label{fig:PD-shot-2-20180411}
+\end{figure}
+
+Shots taken around this time show a very large amount of phase noise at varying bandwidths. It is believed that this is caused by a mismatch in path length between interfering paths within the interferometer. As can be seen in the difference between the two different sets of phase noise plots shown in \autoref{fig:2-PN-shot-2-20180323-bw-1000-40000-unmatched} and \autoref{fig:2-PN-shot-2-20180323-bw-1000-40000-matched} which have unmatched and matched path lengths respectively. The result of matching the path lengths is very significant, as the total path length is 7m, this means the addition of 1/7th of the total path length resulted in a reduction in phase noise of two thirds.
+\begin{figure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth,angle=0]{DImages/Phase_Noise_for_Scene_shot_2_with_bandwidth___1000_Date_20180323.png}
+    \caption{Phase noise graph at a bins of 1000 therefore a bandwidth of 20KHz.}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth, angle=0]{DImages/Phase_Noise_for_Scene_shot_2_with_bandwidth___40000_Date_20180323.png}
+    \caption{Phase noise graph at a bins of 40000 therefore a bandwidth of 500Hz}
+  \end{subfigure}
+\caption{Phase noise of Shot 2 taken on 23/03/18 at two different bandwidths. Length of scene interferometer arm miss matched by ~1m. Bandwidth of 500Hz on figure (b) shows a large amount of structure due to the fact it is likely being performed over some turning points.}
+\label{fig:2-PN-shot-2-20180323-bw-1000-40000-unmatched}
+\end{figure}
+
+\begin{figure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth,angle=0]{DImages/Phase_Noise_for_Scene_shot_8_with_bandwidth___1000_Date_20180323.png}
+    \caption{Phase noise graph at a bins of 1000 therefore a bandwidth of 20KHz.}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth, angle=0]{DImages/Phase_Noise_for_Scene_shot_8_with_bandwidth___40000_Date_20180323.png}
+    \caption{Phase noise graph at a bins of 40000 therefore a bandwidth of 500Hz}
+  \end{subfigure}
+\caption{Phase noise of Shot 8 taken on 23/03/18 at two different bandwidths. Length of scene interferometer arms are now matched to within 1cm. Bandwidth of 500Hz on figure (b) shows a large amount of structure due to the fact it is likely being performed over some turning points.}
+\label{fig:2-PN-shot-2-20180323-bw-1000-40000-matched}
+\end{figure}
+
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/Phase_Noise_for_Scene_shot_2_with_bandwidth___1000_Date_20180323.png}
+\caption{Phase noise graph at a bins of 1000 therefore a bandwidth of 20KHz}
+\label{fig:PN-shot-2-20180323-bw-1000}
+\end{figure}
+
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/Phase_Noise_for_Scene_shot_2_with_bandwidth___40000_Date_20180323.png}
+\caption{Phase noise graph at a bins of 40000 therefore a bandwidth of 500Hz}
+\label{fig:PN-shot-2-20180323-bw-40000}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
+%	New Laser
+%----------------------------------------------------------------------------------------
+\chapter{New Laser}
+
+%----------------------------------------------------------------------------------------
+%	Results
+%----------------------------------------------------------------------------------------
+\section{Overview and Operation}
+The new laser, which is an SFL1550S from Thorlabs \cite{ThorlabsFC/APC} has many advantages over the Koheron based laser system. As shown by the specification it does have regions of multi mode operation between 75-125mA and 250 to 300 mA as shown by \autoref{fig:Multimodelaser}. As a result the chosen operating current is $185 \pm 0.01$ mA, which results in approximately 30mW of output power. The linewidth of this laser is typically 50 KHz but can display a max linewidth of 100KHz. In a worst case scenario this is an improvement of factor 60 over the linewidth of the Koheron based system. In addition to this by operating this laser via the laser driver \cite{CompactPackages}, also from thorlabs, the laser can also be temperature controlled to a precision of $\pm 0.01K$. The heating of the laser cavity can cause emission of undesired photons by increasing the linewidth and can also disturb the coherence of the phase that results in an increase of phase noise. By temperature controlling the laser and therefore the cavity, this process can be minimised resulting in cleaner signal with the narrowest linewidth possible.
+
+\begin{figure}[H] 
+\includegraphics[width=0.85\textwidth, center,angle=0]{DImages/Multimodelaser.PNG}
+\caption{Shows the relationship between operating current and output power of the laser. The greyed areas are regions in which multimode operation occurs \cite{ThorlabsFC/APC}.}
+\label{fig:Multimodelaser}
+\end{figure}
+
+\section{Results}
+
+Initial tests with the new laser at 185mA have shown vast improvements over that of the old system. With phase noise consistently at a value of 3mRad or less at a bandwidth of 20KHz which can be seen by \autoref{fig:4-shot-26-20180416} (c). The same set of plots also shows all of the important parameters to establish the characteristics of the laser. It shows that drift is still present, which solidifies hypothesis about the temperature variations in the fiber optics being a primary cause for the movement of phase. Since the phase noise is now reduced many more phase variations can be seen within the signal, which is important as this mimics certain variations in plasma density which would also only be able to seen if the phase noise is sufficiently low, e.g. sawtooth instabilities.
+
+\begin{figure}[H]
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth,angle=0]{DImages/Phase_Difference_shot_26_Date_20180416.png}
+    \caption{Phase difference with the new laser. Drift is still significant, but with reduced phase noise small variations in phase difference can now be seen as they were likely previously swamped out by noise.\\}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth, angle=0]{DImages/FFT_for_shot_26_Date_20180416.png}
+    \caption{FFT shows single mode operation as expected by running at 185mA. Level of white noise is around 35 Rad which is an order of magnitude less than seen in FFT's of the Koheron system. The low frequency noise remains unchanged.}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth,angle=0]{DImages/Phase_Noise_for_Scene_shot_26_with_bandwidth___1000_Date_20180416-1.png}
+    \caption{Phase noise graph at a bins of 1000 therefore a bandwidth of 20KHz.}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth, angle=0]{DImages/Phase_Noise_for_Scene_shot_26_with_bandwidth___40000_Date_20180416.png}
+    \caption{Phase noise graph at a bins of 40000 therefore a bandwidth of 500Hz}
+  \end{subfigure}
+\caption{Data gathered for shot 26 taken on 16/04/18. Shows that the new laser has given significant improvements to different parameters of the system including a phase noise of 3 mRad at 20KHz bandwidth.}
+\label{fig:4-shot-26-20180416}
+\end{figure}
+
+The interferometer is also sensitive to external vibrations that cause an oscillation in the retroreflector. This can be seen clearly in \autoref{fig:2-modulating-vib} by applying a vibrating speaker to the translation stage. It can be seen by analysing the FFT that by inducing a 100Hz signal many other signals close to that frequency can also be detected. The same effect is also seen when the optical bench is tapped lightly which is shown in \autoref{fig:PD-shot-14-20180416-zoomedplot}. When the table is tapped the signal produced is quickly damped and this can be seen on the large scale plot. The zoomed plot shows that within the low frequency signal caused by the tap a higher frequency signal is also seen. 
+
+\begin{figure}[H]
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth,angle=0]{DImages/PD_-_shot_20_-_20180416_-_zoomed_plot_-_100Hz_speaker.png}
+    \caption{While taking a shot when a vibrating speaker was outputting 100Hz a zoomed in small cross section in the x-axis shows that this signal is actually an oscillation of approximately 100Hz}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth, angle=0]{DImages/FFT_for_shot_20_Date_20180416.png}
+    \caption{FFT of the shot reveals that while there is a frequency spike at 100Hz this also has a linewidth and is surrounded by a few other frequencies, likely harmonics to the 100Hz. The linewidth is visible as phase noise.}
+  \end{subfigure}
+\caption{Shot 20 taken on 16-04-2018 where a vibrospeaker has been placed next to the retroreflector and is operated at 100Hz. This frequency can clearly be seen within both plots and shows that the signal is being represented effectively.}
+\label{fig:2-modulating-vib}
+\end{figure}
+
+\begin{figure}[H] 
+\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/Shot_14_20180417_Zoom_Plot.png}
+\caption{Tapping the table results in a low frequency oscillation that also has higher frequencies mixed in. This is important for the system as this will represent the mechanical vibrations occuring, seeing that they only cause an oscillation is good as this will not effect the density calculation and will be cancelled out when the oscillation is seen on both the HeNe and 1550nm laser.}
+\label{fig:PD-shot-14-20180416-zoomedplot}
+\end{figure}
+
+\subsection{Separating Scene and Reference Signals}
+
+In order to further analyse to the contribution of drift by each of the interferometer arms a new interferometer set up was devised which is shown in \autoref{fig:intconfig4}. The benefit of this set up is that the signal from each interferometer, scene and reference, is compared to that of the driving frequency of the AOM. This should allow the viewing of which path is contributing more to the drift of the phase difference. If both paths were to drift equally, this would be cancelled out and wouldn't matter in the calculation as this was the intention of using an interferometer as the reference signal rather than the function generator. If the interferometer is working as expected and the drift is a function of pressure and temperature changes along the portion of free space then the reference should show a constant drift and the scene should be a modulated form of the reference signal where the modulation is provided by temperature and pressure changes in the free space. This was achieved by modifying the code in the SPEC board to allow signals from four lots of 1550nm signals rather than 2 1550nm and 2 HeNe signals, like would be used in the final system.
+
+From analysing the data shown in \autoref{fig:2-2ch-scene-ref} the scene and the reference drift the result is quite confusing. The phase of each of the channels appears to diverge at t=0.6s. Since the comparison signal is identical for both phase calculation this implies the phase in each interferometer is moving in an opposite direction. This can only be explained by two different scenarios; the free space portion of the scene interferometer experiences a temperature or pressure change that reflects the turning point at t=0.4s, or the temperature in the fiber optics of each interferometer path is slightly different.
+
+\begin{figure}[H]
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth,angle=0]{DImages/Phase_Difference_Blue___Scene_Orange___Reference_shot_9_Date_20180417.png}
+    \caption{Individual phase drift of each interferometer as the raw signal at 20MS/s \\}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth, angle=0]{DImages/avr_2ch_shot_9_20180417.png}
+    \caption{Signal has been averaged into 500 bins to show underlying structure and magnitude of drift.}
+  \end{subfigure}
+\caption{Shot 9 taken on 17-04-2018 where the scene and reference interferometers have a phase difference calculation compared to the same signal that is driving the AOM. In both plots the blue data represents the scene interferometer and the orange represents the reference interferometer.}
+\label{fig:2-2ch-scene-ref}
+\end{figure}
+
+
+%----------------------------------------------------------------------------------------
+%	Conclusion
+%----------------------------------------------------------------------------------------
+\chapter{Conclusion}
+\section{Phase Noise}
+Overall the phase noise of the system can be said to be consistently low enough to fit the specified criterion. The phase noise has slight variations based on factors such as temperature in the room, current supplied to the laser and whether vibrations are sufficiently damped. As can be seen in \autoref{fig:4-phase-noise} the noise is consistently achieved at a value of 3mRad or bellow across a number of shots, using the new laser. This shows a vast improvement over the Koheron system (A consistent factor of 4 improvement along with a increase in stability) and is now comparable to the precision given by the CO2 system currently installed on MAST-U. Using the new laser average value of $3.025 \pm 0.065 mRad$ between the 4 plots seen in \autoref{fig:4-phase-noise} this would represent a density change in the plasma of $~ 6.07\times 10^{17} \pm 2.06\times 10^{17} m^{2}$
+
+\begin{figure}[H] 
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth, angle=0]{DImages/Phase_Noise_for_Shots_1and_2.png}
+    \caption{New Laser consists of shots 1-20 and Koheron consists of shots 21-40.}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth, angle=0]{DImages/Phase_Noise_for_Shots_3and_4.png}
+    \caption{New Laser consists of shots 61-80 and Koheron consists of shots 41-60.}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth,angle=0]{DImages/Phase_Noise_for_Shots_5and_6.png}
+    \caption{New Laser consists of shots 81-100 and Koheron consists of shots 106-125.}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth, angle=0]{DImages/Phase_Noise_for_Shots_7and_8.png}
+    \caption{New Laser consists of shots 146-165 and Koheron consists of shots 126-145.}
+  \end{subfigure}
+\caption{Collection of shots all taken on the same day (23/04/2018) within an hour showing the variation in the phase noise between identical conditions with the only variable factor being the laser. In all plots blue data represents the use of the New laser and red data represents the use of the Koheron laser. (a) shows shots with no insulation. (b) shows shots with insulation present. (c) shows shots with copper tape adding thermal mass but no insulation. (d) shows shot with copper tape and insulation.}
+\label{fig:4-phase-noise}
+\end{figure}
+
+\section{Phase Drift}
 Using the equation for the refractive index of air with varying pressure and temperature:
 
 \begin{equation}
@@ -663,141 +856,40 @@ n(P, T) = (1 + 0.000293 \times \frac{P}{P_{0}} \frac{T_{0}}{T})\times 0.4
 \label{eq:refractive-temp}
 \end{equation}
 
-Where $\frac{P}{P_0} = 1$ therefore assuming air pressure change is negligible. $T_0 = 295K$ as standard room temperature is 22 degrees. T is the temperature change that contributes to the change in refractive index. And the 0.4 Using a temperature change of 0.5 degrees \cite{Melikov1997AirRooms} this results in a path difference of $\pm 198\times 10^{-9}m$ which would result in a phase change of $\pm 0.8 Radians$. This number is within the scope of the drift we expect to see, however this assumes that the whole free space portion changes by this amount. Combining this with the fact that the pressure may also change, this is a cause for concern in our final measurement.
+Where $\frac{P}{P_0} = 1$ therefore assuming air pressure change is negligible. $T_0 = 295K$ as standard room temperature is 22 degrees. T is the temperature change that contributes to the change in refractive index. And the 0.4 is due to the 0.2m double pass free space portion of the interferometer. Using a temperature change of 0.5 degrees \cite{Melikov1997AirRooms} this results in a path difference of $\pm 198\times 10^{-9}m$ which would result in a phase change of $\pm 0.8 Radians$. This number is within the scope of the drift we expect to see, however this assumes that the whole free space portion changes by this amount. Combining this with the fact that the pressure may also change, this is a cause for concern in our final measurement.
 
 Equally if we consider the fiber optics as a contributing component to this shift using the refractive index of 1550nm fiber $n_{0} - 1.4681$ the same temperature change will result in a change of phase of $\pm 20000 Radians$. From this simple calculation we see that the shift due to the free space is negligible compared the the shift in fiber. From this we can say that the temperature shift in fiber is of the order of $\pm 10^{-5} Degrees Kelvin$ to produce a phase shift of 0.4 Radians. It is worth noting that this equation also should have a function of time to it, as we see this shift over the course of a 1 second shot. If the temperature response is sufficiently slow it will be damped greatly on the scale of the shot length, this is likely why we only see a 0.4 Radian drift rather than 20000 Radians. The ratio between these refractive indices already shows that the sensitivity of temperature in fiber is on the order of 1600x greater.
 
-\begin{figure}[H] 
-\includegraphics[width=0.7\textwidth, center,angle=0]{DImages/Phase_Difference_shot_2_Date_20180323-1.png}
-\caption{Phase difference of shot 2 taken on 2018-03-23. Drift is clearly visible on a scale of about 1 Radian.}
-\label{fig:PD-shot-2-20180323}
-\end{figure}
+It has been found that the drift that is caused by temperature changes within the fiber is a major issue with the system. Fiber optic interferometers have been designed where their primary purpose is measurement of temperature \cite{Hocker1979Fiber-opticTemperature}. The paper discusses that with a Helium Neon fiber optic system it is common to see phase drifts of the order of over 100 radians per degree C per meter. Since we require precisions that are many orders of magnitude lower than this it is unlikely a level of sufficient temperature control can be achieved. The phase drift is unpredictable and ultimately limits the resolution of the system to the value of the drift as a result this massively increases the errors on the calculated density of the plasma. As is seen in \autoref{fig:4-max-min-drifts} the drift is wildly inconsistent between shots taken under exact conditions with very little time between shots. The only thing that can be said with confidence is that on average the new laser reduces the amount of drift seen, and insulation also reduces the variance in the drift. The insulation used was a combination of bubble wrap and foam, which showed general reduction in drift visible on an oscilloscope. However replacing this with house insulation didn't seem to show any signs of improvement. This is likely because we are the limits of how much insulation can reduce the temperature fluctuations in the fiber optic cables.
 
 \begin{figure}[H] 
-\includegraphics[width=0.7\textwidth, center,angle=0]{DImages/Phase_Noise_for_Scene_shot_2_with_bandwidth___1000_Date_20180323.png}
-\caption{}
-\label{fig:PN-shot-2-20180323-bw-1000}
-\end{figure}
-
-\begin{figure}[H] 
-\includegraphics[width=0.7\textwidth, center,angle=0]{DImages/Phase_Noise_for_Scene_shot_2_with_bandwidth___40000_Date_20180323.png}
-\caption{}
-\label{fig:PN-shot-2-20180323-bw-40000}
-\end{figure}
-
-
-
-
-%----------------------------------------------------------------------------------------
-%	Analysis
-%----------------------------------------------------------------------------------------
-\section{Analysis}
-
-%----------------------------------------------------------------------------------------
-%	Discussion
-%----------------------------------------------------------------------------------------
-\section{Discussion}
-
-%----------------------------------------------------------------------------------------
-%	New Laser
-%----------------------------------------------------------------------------------------
-
-\chapter{New Laser}
-
-%----------------------------------------------------------------------------------------
-%	Results
-%----------------------------------------------------------------------------------------
-\section{Results}
-
-%----------------------------------------------------------------------------------------
-%	Analysis
-%----------------------------------------------------------------------------------------
-\section{Analysis}
-
-%----------------------------------------------------------------------------------------
-%	Discussion
-%----------------------------------------------------------------------------------------
-\section{Discussion}
-
-
-%----------------------------------------------------------------------------------------
-%	Conclusion
-%----------------------------------------------------------------------------------------
-\chapter{Conclusion}
-
-%----------------------------------------------------------------------------------------
-%	Discussion
-%----------------------------------------------------------------------------------------
-\pagebreak
-\section{Figures to Include}
-
-\begin{figure}[H] 
-\begin{subfigure}{.5\textwidth}
-\centering\captionsetup{width=.9\linewidth}
-\includegraphics[width=\textwidth, angle=0]{DImages/Phase_Noise_for_Shots_1and_2.png}
-\caption{New Laser consists of shots 1-20 and Koheron consists of shots 21-40.}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-\centering\captionsetup{width=.9\linewidth}
-\includegraphics[width=\textwidth, angle=0]{DImages/Phase_Noise_for_Shots_3and_4.png}
-\caption{New Laser consists of shots 61-80 and Koheron consists of shots 41-60.}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-\centering\captionsetup{width=.9\linewidth}
-\includegraphics[width=\textwidth,angle=0]{DImages/Phase_Noise_for_Shots_5and_6.png}
-\caption{New Laser consists of shots 81-100 and Koheron consists of shots 106-125.}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-\centering\captionsetup{width=.9\linewidth}
-\includegraphics[width=\textwidth, angle=0]{DImages/Phase_Noise_for_Shots_7and_8.png}
-\caption{New Laser consists of shots 146-165 and Koheron consists of shots 126-145.}
-\end{subfigure}
-\caption{Collection of shots all taken on the same day (23/04/2018) within an hour showing the variation in the phase noise between identical conditions with the only variable factor being the laser. In all plots blue data represents the use of the New laser and red data represents the use of the Koheron laser. (a) shows shots with no insulation. (b) shows shots with insulation present. (c) shows shots with copper tape adding thermal mass but no insulation. (d) shows shot with copper tape and insulation.}
-\label{fig:4-phase-noise}
-\end{figure}
-
-\begin{figure}[H] 
-\begin{subfigure}{.5\textwidth}
-\centering\captionsetup{width=.9\linewidth}
-\includegraphics[width=\textwidth, angle=0]{DImages/Max_-_Min_Drift_for_Shots_1and_2.png}
-\caption{New Laser consists of shots 1-20 and Koheron consists of shots 21-40.}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-\centering\captionsetup{width=.9\linewidth}
-\includegraphics[width=\textwidth, angle=0]{DImages/Max_-_Min_Drift_for_Shots_3and_4.png}
-\caption{New Laser consists of shots 61-80 and Koheron consists of shots 41-60.}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-\centering\captionsetup{width=.9\linewidth}
-\includegraphics[width=\textwidth,angle=0]{DImages/Max_-_Min_Drift_for_Shots_5and_6.png}
-\caption{New Laser consists of shots 81-100 and Koheron consists of shots 106-125.}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-\centering\captionsetup{width=.9\linewidth}
-\includegraphics[width=\textwidth, angle=0]{DImages/Max_-_Min_Drift_for_Shots_7and_8.png}
-\caption{New Laser consists of shots 146-165 and Koheron consists of shots 126-145.}
-\end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth, angle=0]{DImages/Max_-_Min_Drift_for_Shots_1and_2.png}
+    \caption{New Laser consists of shots 1-20 and Koheron consists of shots 21-40.}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth, angle=0]{DImages/Max_-_Min_Drift_for_Shots_3and_4.png}
+    \caption{New Laser consists of shots 61-80 and Koheron consists of shots 41-60.}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth,angle=0]{DImages/Max_-_Min_Drift_for_Shots_5and_6.png}
+    \caption{New Laser consists of shots 81-100 and Koheron consists of shots 106-125.}
+  \end{subfigure}
+  \begin{subfigure}{.5\textwidth}
+    \centering\captionsetup{width=.9\linewidth}
+    \includegraphics[width=\textwidth, angle=0]{DImages/Max_-_Min_Drift_for_Shots_7and_8.png}
+    \caption{New Laser consists of shots 146-165 and Koheron consists of shots 126-145.}
+  \end{subfigure}
 \caption{Collection of shots all taken on the same day (23/04/2018) within an hour showing the variation in the phase drift between identical conditions with the only variable factor being the laser. In all plots blue data represents the use of the New laser and red data represents the use of the Koheron laser. (a) shows shots with no insulation. (b) shows shots with insulation present. (c) shows shots with copper tape adding thermal mass but no insulation. (d) shows shot with copper tape and insulation.}
 \label{fig:4-max-min-drifts}
 \end{figure}
+%----------------------------------------------------------------------------------------
+%	Discussion
+%----------------------------------------------------------------------------------------
 
-\begin{figure}[H] 
-\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/PD_-_shot_20_-_20180416_-_zoomed_plot_-_100Hz_speaker.png}
-\caption{While taking a shot when a vibrating speaker was outputting 100Hz a zoomed in small cross section in the x-axis shows that this signal is actually an oscillation of approximately 100Hz.}
-\label{fig:PD-shot20-20180416-zoomedplot}
-\end{figure}
-
-\begin{figure}[H] 
-\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/FFT_for_shot_20_Date_20180416.png}
-\caption{FFT of the shot seen in \autoref{fig:PD-shot20-20180416-zoomedplot} reveals that while there is a frequency spike at 100Hz this also has a linewidth and is surrounded by a few other frequencies, likely harmonics to the 100Hz. The linewidth is visible as phase noise.}
-\label{fig:FFT-shot20-20180416-zoomed-10Hz-1000Hz}
-\end{figure}
-
-\begin{figure}[H] 
-\includegraphics[width=0.9\textwidth, center,angle=0]{DImages/Shot_14_20180417_Zoom_Plot.png}
-\caption{}
-\label{fig:PD-shot-14-20180416-zoomedplot}
-\end{figure}
 
 %----------------------------------------------------------------------------------------
 %	Bibliography
@@ -814,6 +906,7 @@ Equally if we consider the fiber optics as a contributing component to this shif
 
 \pagenumbering{roman}
 \setcounter{page}{2}
+\chapter{Appendix}
 \begin{appendices}
 
 %\includepdf[pages={ - }]{ChristopherHicklingSummerProject.pdf}
